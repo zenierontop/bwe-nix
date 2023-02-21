@@ -394,7 +394,7 @@ let userCommands = {
     sticker: function (sticker) {
         if (Object.keys(stickers).includes(sticker)) {
             this.room.emit("talk", {
-                text: `<img class="no_selection" src="img/icons/stickers/${sticker}.png" draggable=false; width=170>`,
+                text: sanitizeHTML(`<img class="no_selection" src="img/icons/stickers/${sticker}.png" draggable=false; width=170>`),
                 say: stickers[sticker],
                 guid: this.guid,
             });
@@ -976,6 +976,7 @@ class User {
         this.guid = Utils.guidGen();
         this.socket = socket;
 
+
         // Handle ban
 	    if (Ban.isBanned(this.getIp())) {
             Ban.handleBan(this.socket);
@@ -1030,7 +1031,6 @@ class User {
 		var roomSpecified = true;
 
 		// If not, set room to public
-
         if (typeof rid == "undefined" || rid === "" || rid.startsWith("20")) {
             if (rid.startsWith("20")) {
                 this.socket.emit("loginFail", {
@@ -1088,6 +1088,8 @@ class User {
         this.room = rooms[rid];
 
         // Check name
+		this.public.name = sanitize(sanitizeHTML(data.name)) || this.room.prefs.defaultName;
+
         if(this.public.name.includes("'")){
 			return this.socket.emit("loginFail", {
 				reason: "nameLength"
@@ -1098,8 +1100,7 @@ class User {
 				reason: "nameLength"
 			});
         }
-		this.public.name = sanitize(sanitizeHTML(data.name)) || this.room.prefs.defaultName;
-			
+
 		if (this.public.name.length > this.room.prefs.name_limit)
 			return this.socket.emit("loginFail", {
 				reason: "nameLength"
