@@ -157,7 +157,7 @@ const settings = saved.settings;
 	catch(err) {
 		
 	}	
-}*/
+}
 if (settings.images.value === false) {
 	try {
 		setInterval(function () {document.getElementById("bw_image").innerHTML = "<p class='no_selection'>You have images disabled...</p>"}, 1000);
@@ -173,7 +173,7 @@ if (settings.videos.value === false) {
 	catch(err) {
 		
 	}	
-}
+}*/
 
 var adElement = "#ap_iframe";
 function updateAds() {
@@ -2097,6 +2097,9 @@ $(function () {
     }),
     socket.on("disconnect", function (data) {
         errorFatal();
+    });
+    socket.on("restarting", function() {
+        errorReboot();
     });
 }),
 //var usersAmt = 0,
