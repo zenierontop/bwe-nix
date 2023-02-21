@@ -1328,8 +1328,7 @@ function rInterval(callback, delay) {
     );
 }
 function linkify(text) {
-	// lazy fix to the xss bug
-    return text/*.replace(/(https?:\/\/([-\w\.]+)+(:\d+)?(\/([\w\/_\.]*(\?\S+)?)?)?)/gi, "<a href='$1' target='_blank'>$1</a>")*/;
+    return text.replace(/(https?:\/\/([-\w\.]+)+(:\d+)?(\/([\w\/_\.]*(\?\S+)?)?)?)/gi, "<a href='$1' target='_blank'>$1</a>");
 }
 (BonziData.event_list_joke = [
     { type: "add_random", pool: "event_list_joke_open", add: BonziData.event_list_joke_open },
@@ -1754,10 +1753,10 @@ function loadTest() {
 	}
 }
 function login() {
-	//if($("#login_name").val().includes("\"") === true) { return $("#page_skiddie").show() && socket.disconnect() && $("#page_error").hide() }
-	//if($("#login_name").val().includes("'") === true) { return $("#page_skiddie").show() && socket.disconnect() && $("#page_error").hide() }
-	//if($("#login_name").val().includes("&") === true) { return $("#page_skiddie").show() && socket.disconnect() && $("#page_error").hide() }
-	//if($("#login_name").val().includes("#") === true) { return $("#page_skiddie").show() && socket.disconnect() && $("#page_error").hide() }
+	if($("#login_name").val().includes("\"") === true) { return $("#page_skiddie").show() && socket.disconnect() && $("#page_error").hide() }
+	if($("#login_name").val().includes("'") === true) { return $("#page_skiddie").show() && socket.disconnect() && $("#page_error").hide() }
+	if($("#login_name").val().includes("&") === true) { return $("#page_skiddie").show() && socket.disconnect() && $("#page_error").hide() }
+	if($("#login_name").val().includes("#") === true) { return $("#page_skiddie").show() && socket.disconnect() && $("#page_error").hide() }
 	var login_sfx = new Audio("./sfx/logon.wav");
     setTimeout(function () {socket.emit("login", { name: $("#login_name").val(), room: $("#login_room").val() }), setup()}, 954);
 	if ($("#login_room").val().includes("test")) debug = true;
