@@ -532,9 +532,8 @@ let userCommands = {
         });
     },
     "youtube": function(vidRaw) {
-        if (vidRaw.includes("\"") || vidRaw.includes("'")) {
-            return;
-        };
+        if (vidRaw.includes("\"")) {return};
+        if (vidRaw.includes("'")) {return};
         var vid = this.private.sanitize ? sanitize(sanitizeHTML(vidRaw)) : sanitizeHTML(vidRaw);
         this.room.emit("youtube", {
             guid: this.guid,
@@ -542,9 +541,8 @@ let userCommands = {
         });
     },
     "soundcloud": function(audRaw) {
-        if (audRaw.includes("\"") || audRaw.includes("'")) {
-            return;
-        };
+        if (audRaw.includes("\"")) {return};
+        if (audRaw.includes("'")) {return};
         var aud = this.private.sanitize ? sanitize(sanitizeHTML(audRaw)) : sanitizeHTML(audRaw);
         this.room.emit("soundcloud", {
             guid: this.guid,
@@ -552,9 +550,8 @@ let userCommands = {
         });
     },
     "image": function (imgRaw) {
-        if (imgRaw.includes("\"") || imgRaw.includes("'")) {
-            return;
-        };
+        if (imgRaw.includes("\"")) {return};
+        if (imgRaw.includes("'")) {return};
         var img = this.private.sanitize ? sanitize(sanitizeHTML(imgRaw)) : sanitizeHTML(imgRaw);
         this.room.emit("image", {
             guid: this.guid,
@@ -562,9 +559,8 @@ let userCommands = {
         });
     }, 
     "video": function (vidRaw) {
-        if (vidRaw.includes("\"") || vidRaw.includes("'")) {
-            return;
-        };
+        if (vidRaw.includes("\"")) {return};
+        if (vidRaw.includes("'")) {return};
         var vid = this.private.sanitize ? sanitize(sanitizeHTML(vidRaw)) : sanitizeHTML(vidRaw);
         this.room.emit("video", {
             guid: this.guid,
@@ -572,9 +568,8 @@ let userCommands = {
         });
     },
     "audio": function (audRaw) {
-        if (audRaw.includes("\"") || audRaw.includes("'")) {
-            return;
-        };
+        if (audRaw.includes("\"")) {return};
+        if (audRaw.includes("'")) {return};
         var aud = this.private.sanitize ? sanitize(sanitizeHTML(audRaw)) : sanitizeHTML(audRaw);
         this.room.emit("audio", {
             guid: this.guid,
@@ -828,7 +823,10 @@ let userCommands = {
         if (argsString.includes("{NAME}")) {
             return;
         }
-        if (argsString.includes("'") || argsString.includes("\"")) {
+        if (argsString.includes("'")) {
+            return;
+        }
+        if (argsString.includes("\"")) {
             return;
         }
 
@@ -844,7 +842,7 @@ let userCommands = {
             argsString = this.public.color;
         }
         if (argsString.includes("{NAME}")) {
-            return;
+            argsString = sanitizeHTML2(this.public.name);
         }
         if (argsString.includes("'") || argsString.includes("\"")) {
             return;
