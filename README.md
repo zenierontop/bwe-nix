@@ -1,2 +1,1 @@
-# BonziWORLD-Enhanced
-private  ;)
+# BonziWORLD-Enhanced-Server
