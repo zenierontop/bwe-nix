@@ -844,7 +844,10 @@ let userCommands = {
         if (argsString.includes("{NAME}")) {
             argsString = sanitizeHTML2(this.public.name);
         }
-        if (argsString.includes("'") || argsString.includes("\"")) {
+        if (argsString.includes("\"")) {
+            return;
+        }
+        if (argsString.includes("'")) {
             return;
         }
 
