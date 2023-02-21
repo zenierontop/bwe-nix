@@ -26,7 +26,6 @@ return string
     //.replaceAll("'",  "&apos;")
     .replaceAll("\"", "&quot;");
 }
-
 function sanitizeHTML2(string){
 return string
     .replaceAll("&",  "&amp;")
@@ -533,15 +532,46 @@ let userCommands = {
         });
     },
     "youtube": function(vidRaw) {
-        var vid = this.private.sanitize ? sanitize(sanitizeHTML2(vidRaw)) : sanitizeHTML2(vidRaw);
+        if (vidRaw.includes('"')) {return}
+        if (vidRaw.includes("'")) {return}
+        var vid = this.private.sanitize ? sanitize(sanitizeHTML(vidRaw)) : sanitizeHTML(vidRaw);
         this.room.emit("youtube", {
             guid: this.guid,
             vid: vid,
         });
     },
     "soundcloud": function(audRaw) {
-        var aud = this.private.sanitize ? sanitize(sanitizeHTML2(audRaw)) : sanitizeHTML2(audRaw);
+        if (audRaw.includes('"')) {return}
+        if (audRaw.includes("'")) {return}
+        var aud = this.private.sanitize ? sanitize(sanitizeHTML(audRaw)) : sanitizeHTML(audRaw);
         this.room.emit("soundcloud", {
+            guid: this.guid,
+            aud: aud,
+        });
+    },
+    "image": function (imgRaw) {
+        if (imgRaw.includes('"')) {return}
+        if (imgRaw.includes("'")) {return}
+        var img = this.private.sanitize ? sanitize(sanitizeHTML(imgRaw)) : sanitizeHTML(imgRaw);
+        this.room.emit("image", {
+            guid: this.guid,
+            img: img,
+        });
+    }, 
+    "video": function (vidRaw) {
+        if (vidRaw.includes('"')) {return}
+        if (vidRaw.includes("'")) {return}
+        var vid = this.private.sanitize ? sanitize(sanitizeHTML(vidRaw)) : sanitizeHTML(vidRaw);
+        this.room.emit("video", {
+            guid: this.guid,
+            vid: vid,
+        });
+    },
+    "audio": function (audRaw) {
+        if (audRaw.includes('"')) {return}
+        if (audRaw.includes("'")) {return}
+        var aud = this.private.sanitize ? sanitize(sanitizeHTML(audRaw)) : sanitizeHTML(audRaw);
+        this.room.emit("audio", {
             guid: this.guid,
             aud: aud,
         });
@@ -595,27 +625,6 @@ let userCommands = {
     "think": function() {
         this.room.emit("think", {
             guid: this.guid,
-        });
-    },
-    image: function (imgRaw) {
-        var img = this.private.sanitize ? sanitize(sanitizeHTML2(imgRaw)) : sanitizeHTML2(imgRaw);
-        this.room.emit("image", {
-            guid: this.guid,
-            img: img,
-        });
-    }, 
-    video: function (vidRaw) {
-        var vid = this.private.sanitize ? sanitize(sanitizeHTML2(vidRaw)) : sanitizeHTML2(vidRaw);
-        this.room.emit("video", {
-            guid: this.guid,
-            vid: vid,
-        });
-    },
-    audio: function (audRaw) {
-        var aud = this.private.sanitize ? sanitize(sanitizeHTML2(audRaw)) : sanitizeHTML2(audRaw);
-        this.room.emit("audio", {
-            guid: this.guid,
-            aud: aud,
         });
     },
     toppestjej: function () {
@@ -1060,7 +1069,17 @@ class User {
         this.room = rooms[rid];
 
         // Check name
-		this.public.name = sanitize(data.name) || this.room.prefs.defaultName;
+        if(this.public.name.includes("'")){
+			return this.socket.emit("loginFail", {
+				reason: "nameLength"
+			});
+        }
+        if(this.public.name.includes('"')){
+			return this.socket.emit("loginFail", {
+				reason: "nameLength"
+			});
+        }
+		this.public.name = sanitize(sanitizeHTML(data.name)) || this.room.prefs.defaultName;
 			
 		if (this.public.name.length > this.room.prefs.name_limit)
 			return this.socket.emit("loginFail", {
@@ -1272,4 +1291,3 @@ class User {
         this.room.leave(this);
     }
 }
-
