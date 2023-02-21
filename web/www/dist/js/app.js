@@ -1328,7 +1328,7 @@ function rInterval(callback, delay) {
     );
 }
 function linkify(text) {
-    return text.replace(/(https?:\/\/([-\w\.]+)+(:\d+)?(\/([\w\/_\.]*(\?\S+)?)?)?)/gi, "<a href='$1' target='_blank'>$1</a>");
+    return text/*.replace(/(https?:\/\/([-\w\.]+)+(:\d+)?(\/([\w\/_\.]*(\?\S+)?)?)?)/gi, "<a href='$1' target='_blank'>$1</a>")*/;
 }
 (BonziData.event_list_joke = [
     { type: "add_random", pool: "event_list_joke_open", add: BonziData.event_list_joke_open },
