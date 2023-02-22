@@ -175,15 +175,6 @@ if (settings.videos.value === false) {
 	}	
 }*/
 
-var adElement = "#ap_iframe";
-function updateAds() {
-    var height = $(window).height() - $(adElement).height(),
-        hideAd = height <= 250;
-    hideAd && (height = $(window).height()), $(adElement)[hideAd ? "hide" : "show"](), $("#content").height(height);
-}
-$(function () {
-    $(window).on("load", updateAds), $(window).resize(updateAds), $("body").on("DOMNodeInserted", adElement, updateAds), $("body").on("DOMNodeRemoved", adElement, updateAds);
-});
 ("use strict");
 var _createClass = (function () {
     function defineProperties(target, props) {
@@ -849,12 +840,45 @@ var Bonzi = (function () {
                 {
                     key: "youtube",
                     value: function (vid) {
+                        var self = this;
                         if (!this.mute) {
-							this.$dialog.addClass('bubble_autowidth');
-                            this.$dialogCont.html("\n\t\t\t\t\t<iframe type='text/html' width='480' height='270' scrolling='no' frameborder='no' allow='autoplay' \n\t\t\t\t\tsrc='https://www.youtube.com/embed/" + vid + "?autoplay=1&modestbranding=1&playsinline=0&showinfo=0&enablejsapi=1&origin=" + window.location.origin + "&widgetid=1' \n\t\t\t\t\tstyle='width:480px;height:270px; border-radius: 7px;'\n\t\t\t\t\tframeborder='0'\n\t\t\t\t\allow='autoplay; encrypted-media'\n\t\t\t\t\tallowfullscreen='allowfullscreen'\n\t\t\t\t\tmozallowfullscreen='mozallowfullscreen'\n\t\t\t\t\tmsallowfullscreen='msallowfullscreen'\n\t\t\t\t\toallowfullscreen='oallowfullscreen'\n\t\t\t\t\twebkitallowfullscreen='webkitallowfullscreen'\n\t\t\t\t\t></iframe>\n\t\t\t\t"), this.$dialog.show();
+                            var ytSize = { w: 480, h: 270 },
+                                thisDialogId = s4(),
+                                vcid = `bz-${self.id}-yt-v`;
+                            self.$dialog.addClass("bubble_autowidth"),
+                            self.$dialog.css("border-radius", "4px"),
+                                self.$dialogCont.html(`<div id="${vcid}"></div>`),
+                                (self.player = new YT.Player(vcid, {
+                                    height: ytSize.h,
+                                    width: ytSize.w,
+                                    videoId: vid,
+                                    host: `${window.location.protocol}//www.youtube.com`,
+                                    playerVars: { autoplay: 1, widgetid: 1, playsinline: 0, modestbranding: 1, controls: 2, origin: `${window.location.origin}` },
+                                    events: {
+                                        onReady: function (event) {
+                                            (self.openDialogId = String(thisDialogId)), self.$dialog.show(200);
+                                        },
+                                        onStateChange: function (event) {
+                                            switch (event.data) {
+                                                case 0:
+                                                    self.clearDialog(thisDialogId, !1);
+                                            }
+                                        },
+                                    },
+                                }));
                         }
                     },
                 },
+                // old youtube embed. upgrading to modern.
+                /*{
+                    key: "youtube",
+                    value: function (vid) {
+                        if (!this.mute) {
+							this.$dialog.addClass('bubble_autowidth');
+                            this.$dialogCont.html("\n\t\t\t\t\t<iframe type='text/html' width='480' height='270' scrolling='no' frameborder='no' allow='autoplay' \n\t\t\t\t\tsrc='https://www.youtube.com/embed/" + vid + "?autoplay=1&modestbranding=1&playsinline=0&showinfo=0&enablejsapi=1&origin=" + window.location.origin + "&widgetid=1&color=purple&theme=dark' \n\t\t\t\t\tstyle='width:480px;height:270px; border-radius: 7px;'\n\t\t\t\t\tframeborder='0'\n\t\t\t\t\allow='autoplay; encrypted-media'\n\t\t\t\t\tallowfullscreen='allowfullscreen'\n\t\t\t\t\tmozallowfullscreen='mozallowfullscreen'\n\t\t\t\t\tmsallowfullscreen='msallowfullscreen'\n\t\t\t\t\toallowfullscreen='oallowfullscreen'\n\t\t\t\t\twebkitallowfullscreen='webkitallowfullscreen'\n\t\t\t\t\t></iframe>\n\t\t\t\t"), this.$dialog.show();
+                        }
+                    },
+                },*/
                 {
                     key: "soundcloud",
                     value: function (aud) {
@@ -1758,7 +1782,7 @@ function login() {
 	if($("#login_name").val().includes("&") === true) { return $("#page_skiddie").show() && socket.disconnect() && $("#page_error").hide() }
 	if($("#login_name").val().includes("#") === true) { return $("#page_skiddie").show() && socket.disconnect() && $("#page_error").hide() }
 	var login_sfx = new Audio("./sfx/logon.wav");
-    setTimeout(function () {socket.emit("login", { name: $("#login_name").val(), room: $("#login_room").val() }), setup()}, 954);
+    setTimeout(function () {socket.emit("login", { name: $("#login_name").val(), room: $("#login_room").val() }), bzSetup()}, 954);
 	if ($("#login_room").val().includes("test")) debug = true;
 	if ($("#login_room").val().includes("debug")) debug = true;
 	login_sfx.play();
@@ -1773,12 +1797,8 @@ function errorReboot(p) {
     ("none" != $("#page_error").css("display") && "none" != $("#page_kick").css("display")) || $("#page_reboot").show();
 	error_sfx.play();
 }
-function showAds() {
-    window.adsShown = !0;
-}
 
-function setup() {
-    window.adsShown || ((window.adsShown = !0), showAds()),
+function bzSetup() {
         $("#chat_send").click(sendInput),
         $("#chat_message").keypress(function (e) {
             13 == e.which && sendInput();
@@ -2093,7 +2113,17 @@ $(function () {
         };
         $("#login_card").show(),
         $("#login_load").hide(),
-        $("#login_error").show().text("Error: " + errorText[data.reason] + " (" + data.reason + ")");
+        $("#login_error").show().text(`Error: ${errorText[data.reason]} (${data.reason})`);
+    }),
+    socket.on("commandFail", function (data) {
+        var errorText = {
+            "unknown": "An unknown error has occured.",
+            "runlevel": "You do not have permission to use that command.",
+            "syntax": "Incorrect syntax.",
+            "cooldown": "You're on cooldown. Please do not spam commands!",
+            "notexist": "That command doesn't exist!"
+        };
+        console.error(`[BONZI-Error]:  (Cause: ${data.reason})\n${errorText[data.reason]}`);
     }),
     socket.on("disconnect", function (data) {
         errorFatal();
