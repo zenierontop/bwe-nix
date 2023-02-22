@@ -28,6 +28,7 @@ git clone https://github.com/CosmicStar98/BonziWORLD-Enhanced
 cd BonziWORLD-Enhanced
 ```
 ### Client
+```
 This part is unneeded. The client comes pre-built.
 ```
 ### Server
