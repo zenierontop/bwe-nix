@@ -1,6 +1,8 @@
 # BonziWORLD Enhanced
 This bonziworld respository is a private server framework lended out to trusted people.
 
+<hr>
+
 ## Requirements
 - Node 19 or later
 
@@ -43,4 +45,8 @@ I'm not responsible if you screw up anything with your computer while setting th
 
 ### License & Copyright
 MIT
+
 Copyright (c) 2023-2026 Cosmic
+
+
+<hr>
