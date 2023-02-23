@@ -1,6 +1,10 @@
 # BonziWORLD Enhanced
 This bonziworld respository is a private server framework lended out to trusted people.
 
+#### Quick Links
+- [TODO](TODO.md, "Things i need to work on...")
+- [LICENSE](LICENSE.md, "View this project's license...")
+
 <hr>
 
 ## Requirements
