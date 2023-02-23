@@ -1,4 +1,4 @@
-# BonziWORLD-Enhanced-Server
+# BonziWORLD Enhanced
 This bonziworld respository is a private server framework lended out to trusted people.
 
 ## Requirements
@@ -43,3 +43,6 @@ I'm not responsible if you screw up anything with your computer while setting th
 
 ## License
 MIT
+
+## Copyright
+Copyright (c) 2023-2026 Cosmic
