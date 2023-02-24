@@ -230,7 +230,7 @@ var stickers = {
 };
 
 function emojify(txt) {
-	return txt.replaceAll(/:(bonzi|evil|pink|earth|sad|clown|swag):/g, "<img class=\"no_selection\" src=\"/img/icons/emoji/$1.png\" draggable=false>")
+	return txt.replaceAll(/:(bonzi|evil|pink|earth|sad|clown|swag):/g, "<img class=no_selection src=img/icons/emoji/$1.png draggable=false>")
 }
 
 var noflood = [];
@@ -394,7 +394,7 @@ let userCommands = {
     sticker: function (sticker) {
         if (Object.keys(stickers).includes(sticker)) {
             this.room.emit("talk", {
-                text: sanitizeHTML(`<img class="no_selection" src="img/icons/stickers/${sticker}.png" draggable=false; width=170>`),
+                text: sanitizeHTML(`<img class=no_selection src=img/icons/stickers/${sticker}.png draggable=false width=170>`),
                 say: stickers[sticker],
                 guid: this.guid,
             });
