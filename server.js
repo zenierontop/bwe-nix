@@ -106,7 +106,7 @@ Ban.init();
 
 // Start actually listening
 server.listen(port, function() {
-  console.log("Welcome to BonziWORLD Enhanced!!\n", "Time to meme!\n", "----------------------\n", "HTTP Express Server listening at port " + port + "\n", "=+.----------------*-<|\ Logs /|>-*----------------.+=\n");
+  console.log("Welcome to BonziWORLD Enhanced!!\n", "Time to meme!\n", "----------------------\n", "HTTP Express Server listening at port " + port + "\n", "=+.----------------*-<|{ Logs }|>-*----------------.+=\n");
 });
 app.use(express.static(__dirname + "/public"));
 
