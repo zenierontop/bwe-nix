@@ -807,7 +807,7 @@ let userCommands = {
         this.socket.emit("vaporwave");
         this.room.emit("youtube", {
             guid: this.guid,
-            vid: "5BZLz21ZS_Y"
+            vid: "_HJ9LdmppYU"
         });
     },
     "unvaporwave": function() {
