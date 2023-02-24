@@ -19,6 +19,8 @@ body, html  {
 .text-right  {
     text-align: right;
 }
+
+
 @keyframes rainbow {
     from{
         filter:hue-rotate(0deg)
@@ -27,6 +29,7 @@ body, html  {
         filter:hue-rotate(360deg)
     }
 }
+
 .rainbow {
     animation:rainbow 2s linear infinite
 }
@@ -1475,6 +1478,27 @@ img.emoji  {
     bottom: 124px;
     left: 0;
 }
+
+#arcade_label {
+    letter-spacing: 1px;
+    font-size: 11px;
+    padding: 5px;
+    margin-top: 5px;
+    margin-right: 8px;
+    font-weight: 700;
+    color: #fdfdfdba;
+}
+
+#themes_label {
+    letter-spacing: 1px;
+    font-size: 11px;
+    padding: 5px;
+    margin-top: 5px;
+    margin-right: 8px;
+    font-weight: 700;
+    color: #fdfdfdba;
+}
+
 ::-moz-selection  {
     background: #b72be38c;
 }
