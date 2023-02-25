@@ -2,6 +2,8 @@
   "name": "bonziworld_e_server",
   "version": "1.0.0",
   "description": "Server for the BonziWORLD Enhanced chat client.",
+  "keywords": ["bonziworld"],
+  "repository": "https://github.com/CosmicStar98/BonziWORLD-Enhanced.git",
   "main": "server.js",
   "author": "Cosmic",
   "private": true,
