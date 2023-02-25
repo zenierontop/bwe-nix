@@ -2,10 +2,18 @@
 
 ## Supported Versions
 
+:white_check_mark: = Full support | 
+☑️ = Partial Support |
+:x: = No Support
+
+
 | Version | Supported          |
 | ------- | ------------------ |
-| 1.x.x   | :white_check_mark: |
-| bwr 1.12.x   | :x:                |
+| bwe 1.x.x   | :white_check_mark: |
+| old licensed builds of bwe   | :x:                |
+| bwr <=1.12.1   | ☑️                |
+| bwr >=1.12.1   | :x:                |
+
 
 ## Reporting a Vulnerability
 
