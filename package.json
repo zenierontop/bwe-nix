@@ -15,8 +15,7 @@
   },
   "contributors": [
     {
-      "name": "Daisreich",
-      "email": "mlumish@google.com"
+      "name": "Daisreich"
     }
   ],
   "main": "server.js",
