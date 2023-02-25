@@ -10,9 +10,9 @@ This bonziworld respository is a private server framework lended out to trusted 
 <hr>
 
 ## Requirements
-- Node 19 or later
+- NodeJS 19 or later
 
-## Dependencies
+## Code Dependencies
 - Node.js and npm
 - Sass
 - Git
