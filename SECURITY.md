@@ -9,10 +9,10 @@
 
 | Version | Supported          |
 | ------- | ------------------ |
-| bwe 1.x.x   | :white_check_mark: |
+| bwe2/cobalt 1.x.x   | :white_check_mark: |
 | old licensed builds of bwe   | :x:                |
 | bwr <=1.12.1   | ☑️                |
-| bwr >=1.12.1   | :x:                |
+| bwr >1.12.1   | :x:                |
 
 
 ## Reporting a Vulnerability
