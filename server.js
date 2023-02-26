@@ -58,16 +58,16 @@ var server = require("http").createServer(app);
 // Init socket.io
 var io = require('socket.io')(server, {
   cors: {
-    origin: ["http://localhost:" + port + "", "http://127.0.0.1:" + port + "", "https://cobalt.cosmicstar37.repl.co:443","http://147.185.221.180:35473"],
+    origin: ["http://localhost:" + port + "", "http://127.0.0.1:" + port + "", "https://cobalt.cosmicstar37.repl.co:443","http://147.185.221.180:35473","180.ip.ply.gg:35473","must-psychiatry.at.ply.gg:35473"],
     methods: ["GET", "POST"],
   },
   handlePreflightRequest: (req, res) => {
     const headers = {
       "Access-Control-Allow-Headers": "Content-Type, Authorization",
-      "Access-Control-Allow-Origin": ["http://localhost:" + port + "", "http://127.0.0.1:" + port + "", "https://cobalt.cosmicstar37.repl.co:443","http://147.185.221.180:35473"],
+      "Access-Control-Allow-Origin": ["http://localhost:" + port + "", "http://127.0.0.1:" + port + "", "https://cobalt.cosmicstar37.repl.co:443","http://147.185.221.180:35473","180.ip.ply.gg:35473","must-psychiatry.at.ply.gg:35473"],
       "Access-Control-Allow-Credentials": true,
     };
-    if (headers["Access-Control-Allow-Origin"] != headers["Access-Control-Allow-Origin"][0] || headers["Access-Control-Allow-Origin"][1] || headers["Access-Control-Allow-Origin"][2] || headers["Access-Control-Allow-Origin"][3]) {
+    if (headers["Access-Control-Allow-Origin"] != headers["Access-Control-Allow-Origin"][0] || headers["Access-Control-Allow-Origin"][1] || headers["Access-Control-Allow-Origin"][2] || headers["Access-Control-Allow-Origin"][3] || headers["Access-Control-Allow-Origin"][4] || headers["Access-Control-Allow-Origin"][5]) {
       res.status(403).render();
       res.writeHead(403, headers);
       res.end();
