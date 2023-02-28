@@ -14,5 +14,6 @@
 - [ ] Bring back BonziVERSE's account system and user readme [**22% done**]
 - [ ] Add a chat logger (or port over the one from bonzi.world to classic) [**0% done**]
 - [ ] Add an api for joining rooms (eg. http://localhost/api/room/join:rid) [**0% done**]
+- [ ] Implement session middleware to socket.io [**98% done**]
 
 <hr>
