@@ -1,11 +1,9 @@
 # BWE Setup Instructions
 
-<hr>
-
-## Requirements
+### Requirements
 - NodeJS v19 or later
 
-## Code Dependencies
+### Code Dependencies
 - Node.js and npm
 - Sass
 - Git
@@ -22,7 +20,9 @@
 - Nodemon
 - Got
 
-## Setup
+
+<hr>
+
 In a terminal/command prompt, navigate to where you'd like BonziWORLD Enhanced to be placed and run the following:
 ```
 git clone https://github.com/CosmicStar98/BonziWORLD-Enhanced
