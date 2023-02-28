@@ -93,7 +93,8 @@ var session = Session({store: new SessionStore({path: __dirname+'/tmp/sessions'}
 app.use(session); // session support
 app.get('/set_session', function (req, res) { // navigate here to set a new session
   req.session.uid = Date.now();
-  res.redirect(req.header('Referer') || '/');
+  //res.redirect(req.header('Referer') || '/');
+  res.redirect('back');
 });
 app.get('/get_session', function (req, res) { // navigate here to see session ID
   res.end("Session id: "+req.session.uid);
