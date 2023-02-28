@@ -64,9 +64,9 @@ var log_file = "log_" + d + ".json";
 /*if (!fs.existsSync(log_dir)){
     fs.mkdirSync(log_dir, { recursive: true });
 }*/
-if(cmd == undefined){cmd = "NULL"};
-if(cmd_value == undefined){cmd_value = "NULL"};
-if(cmd_value2 == undefined){cmd_value2 = "NULL"};
+if(cmd == undefined || "undefined" || "" || " "){cmd = "NULL"};
+if(cmd_value == undefined || "undefined" || "" || " "){cmd_value = "NULL"};
+if(cmd_value2 == undefined || "undefined" || "" || " "){cmd_value2 = "NULL"};
 axios.get('https://api.ipify.org', { headers: { 'User-Agent': 'bonzi_logger', 'Origin': '127.0.0.1:' + port + '' }  })
     .then(response => {
         console.log(JSON.stringify({"ip":response.data,"command":cmd, "command_value": cmd_value, "command_value2": cmd_value2}, 2));
