@@ -2,9 +2,9 @@
 
 ### Requirements
 - NodeJS v19 or later
+- Latest release of npm
 
 ### Code Dependencies
-- Node.js and npm
 - Sass
 - Git
 - FS
