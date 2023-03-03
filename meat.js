@@ -27,58 +27,14 @@ process.on("uncaughtException", (err) => {
         throw err;
 });
 
-function writeFileSyncRecursive(filename, content, charset) {
-  // -- normalize path separator to '/' instead of path.sep, 
-  // -- as / works in node for Windows as well, and mixed \\ and / can appear in the path
-  let filepath = filename.replace(/\\/g,'/');  
-  // -- preparation to allow absolute paths as well
-  let root = '';
-  if (filepath[0] === '/') { 
-    root = '/'; 
-    filepath = filepath.slice(1);
-  } 
-  else if (filepath[1] === ':') { 
-    root = filepath.slice(0,3);   // c:\
-    filepath = filepath.slice(3); 
-  }
-  // -- create folders all the way down
-  const folders = filepath.split('/').slice(0, -1);  // remove last item, file
-  folders.reduce(
-    (acc, folder) => {
-      const folderPath = acc + folder + '/';
-      if (!fs.existsSync(folderPath)) {
-        fs.mkdirSync(folderPath);
-      }
-      return folderPath
-    },
-    root // first 'acc', important
-  ); 
-  // -- write file
-  fs.writeFileSync(root + filepath, content, charset);
-}
-
 function bonzi_log(cmd,cmd_value,cmd_value2) {
-var d = new Date();
-var log_dir = __dirname + "/json/logs";
-var log_file = "log_" + d + ".json";
-/*if (!fs.existsSync(log_dir)){
-    fs.mkdirSync(log_dir, { recursive: true });
-}*/
+var d = new Date().toLocaleString();
 if(cmd == undefined || "undefined" || "" || " "){cmd = "NULL"};
 if(cmd_value == undefined || "undefined" || "" || " "){cmd_value = "NULL"};
 if(cmd_value2 == undefined || "undefined" || "" || " "){cmd_value2 = "NULL"};
 axios.get('https://api.ipify.org', { headers: { 'User-Agent': 'bonzi_logger', 'Origin': '127.0.0.1:' + port + '' }  })
     .then(response => {
-        console.log(JSON.stringify({"ip":response.data,"command":cmd, "command_value": cmd_value, "command_value2": cmd_value2}, 2));
-	fs.readFile(log_dir + "/" + log_file, 'utf8', function readFileCallback(err, json_data){
-	if (err){
-		console.log(err);
-	} else {
-		obj = JSON.parse(json_data); //now it an object
-		obj.push({"ip":response.data,"command":cmd, "command_value": cmd_value, "command_value2": cmd_value2}); //add some data
-		json = JSON.stringify(obj, 2); //convert it back to json
-		writeFileSyncRecursive(log_dir + "/" + log_file, json, 'utf8');
-	}});
+        console.log(JSON.stringify({"time":d,"ip":response.data,"command":cmd, "command_value": cmd_value, "command_value2": cmd_value2}, 2));
     })
     .catch(error => {
         console.log(error);
