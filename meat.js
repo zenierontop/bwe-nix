@@ -590,6 +590,15 @@ let userCommands = {
             aud: aud,
         });
     },
+    "spotify": function(audRaw) {
+        if (audRaw.includes("\"")) {return};
+        if (audRaw.includes("'")) {return};
+        var aud = this.private.sanitize ? sanitize(sanitizeHTML(audRaw)) : sanitizeHTML(audRaw);
+        this.room.emit("spotify", {
+            guid: this.guid,
+            aud: aud,
+        });
+    },
     "image": function (imgRaw) {
         if (imgRaw.includes("\"")) {return};
         if (imgRaw.includes("'")) {return};
