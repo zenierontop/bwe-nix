@@ -632,10 +632,14 @@ var Bonzi = (function () {
                 {
                     key: "talk",
                     value: function (text, say, allowHtml) {
+						var self = this;
                         this._updateStatus();
 						if (this.aud != null) {
                             this.aud.pause();
                         }
+						var toscroll = document.getElementById("chat_log_list").scrollHeight - document.getElementById("chat_log_list").scrollTop < 605;
+						setTimeout(function(){document.getElementById("chat_log_list").innerHTML += "<ul><li class=\"bonzi-message cl-msg ng-scope bonzi-event\" id=\"cl-msg-"+self.id+"\"><span class=\"timestamp ng-binding\"></span> <span class=\"sep tn-sep\"></span><span class=\"bonzi-name ng-isolate-scope\"><span class=\"event-source ng-binding ng-scope\"><font color='"+this.userPublic.color+"'>"+this.userPublic.name+"</font></span></span><span class=\"sep bn-sep\">: </span><span class=\"body ng-binding ng-scope\">"+text+"</span></li></ul>"},122);
+						if(toscroll) document.getElementById("chat_log_list").scrollTop = document.getElementById("chat_log_list").scrollHeight;
 						if (settings.espeak_tts.value === true) {
 							var _this3 = this;
 							this.usingYTAlready = false;
@@ -2333,6 +2337,17 @@ $(document).mouseup(function() {
 	try {
 		$(this).after(click_sfx.play());
 	} catch(e) {}
+});
+let maximized = 1;
+$(document).ready(function () {
+    $("#chat_log_controls").on("click", function () {
+        maximized = maximized ? 0 : 1;
+		$("#room_info").toggleClass("log-minimized");
+		$("#arcade_icon").toggleClass("log-minimized");
+		$("#themes_icon").toggleClass("log-minimized");
+        $(".chat-log").toggleClass("maximized minimized");
+        $("#chat_log_list").toggleClass("hidden");
+    });
 });
 
 socket.on('error', (err) => {
