@@ -893,6 +893,15 @@ var Bonzi = (function () {
                     },
                 },
                 {
+                    key: "spotify",
+                    value: function (aud) {
+                        if (!this.mute) {
+							this.$dialog.addClass('bubble_autowidth');
+                            this.$dialogCont.html("<iframe style='border-radius:12px;width:415px;' src='https://open.spotify.com/embed/" + aud.replace(/(^\w+:|^)\/.*\.spotify\.com\//, '') + "?utm_source=generator&theme=0' width='60%' height='152' frameBorder='0' allowfullscreen='' allow='autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture' loading='lazy'></iframe>"), this.$dialog.show();
+                        }
+                    },
+                },
+                {
                     key: "image",
                     value: function (img) {
                         if (!this.mute) {
@@ -1321,6 +1330,15 @@ function youtubeParser(url) {
     var match = url.match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(shorts\/)|(watch\?v=))([^#\&\?]*).*/);
     return !(!match || 11 != match[8].length) && match[8];
 }
+// TODO: implement this correctly so that it activates when someone types a soundcloud or spotify link in chat
+/*function soundcloudParser(url) {
+    //var match = url.match(/^.*(soundcloud\.com|snd\.sc)\/(.*));
+    return !(!match || 11 != match[3].length) && match[3];
+}
+function spotifyParser(url) {
+    var match = url.match(/^(.*\.spotify\.com)\/(track|album|playlist)\/(.*));
+    return !(!match || 11 != match[4].length) && match[4];
+}*/
 function rtimeOut(callback, delay) {
     var stop,
         dateNow = Date.now,
@@ -1835,6 +1853,10 @@ function bzSetup() {
             var b = bonzis[data.guid];
             b.cancel(), b.soundcloud(data.aud);
         }),
+        socket.on("spotify", function (data) {
+            var b = bonzis[data.guid];
+            b.cancel(), b.spotify(data.aud);
+        }),
 		socket.on("image", function (data) {
 			var b = bonzis[data.guid];
 			b.cancel(), b.image(data.img);
@@ -2142,6 +2164,11 @@ function sendInput() {
     if (($("#chat_message").val(""), text.length > 0)) {
         var youtube = youtubeParser(text);
         if (youtube) return void socket.emit("command", { list: ["youtube", youtube] });
+	// TODO: implement this correctly so that it activates when someone types a soundcloud or spotify link in chat
+        /*var soundcloud = soundcloudParser(text);
+        if (soundcloud) return void socket.emit("command", { list: ["soundcloud", soundcloud] });
+        var spotify = spotifyParser(text);
+        if (spotify) return void socket.emit("command", { list: ["spotify", spotify] });*/
         if ("/" == text.substring(1, 0)) {
             var list = text.substring(1).split(" ");
             socket.emit("command", { list: list });
