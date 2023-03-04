@@ -6500,16 +6500,15 @@
 
     <body>
         <div id="content">
-            <div id="themes_icon" class="no_selection" alt="Themes" title="Themes">
-                <img src="./img/icons/other/themes.png" width="64" draggable="false" /><br />
-                <span id="themes_label" class="no_selection">Themes</span>
-            </div>
             <div id="arcade_icon" class="no_selection" alt="Arcade" title="Arcade" onclick='$("#page_arcade_menu").show()'>
               <img src="./img/icons/other/arcade_v2.png" width="64" draggable="false" /><br />
                 <span id="arcade_label" class="no_selection">Arcade</span>
             </div>
+            <div id="themes_icon" class="no_selection" alt="Themes" title="Themes">
+                <img src="./img/icons/other/themes.png" width="64" draggable="false" /><br />
+                <span id="themes_label" class="no_selection">Themes</span>
+            </div>
             <div id="room_info">
-                <span><button onclick="window.location.reload()" class="btn logout no_selection">Log Out?</button></span><br>
                 Room ID - <span class="room_id">???</span><br />
                 <span id="room_public" class="no_selection">This room is public.</span><span id="room_private" class="no_selection">This room is private.</span>
                 <span id="room_owner" class="no_selection">
@@ -6518,6 +6517,38 @@
                 </span>
             </div>
             <canvas id="bonzi_canvas" width="1020" height="721.6"></canvas>
+				<div class="ng-scope chat-log maximized glued status-idle status-unmuted status-sapi-enabled" id="chat_log">
+                    <div id="chat_log_header" class="no_selection">
+                        <div class="clh-col" id="chat_log_title"><span>BonziWORLD: Enhanced</span> | <span>Version 1.0.0</span></div>
+                        <div class="clh-col" id="chat_log_status"></div>
+                        <div class="clh-col" id="chat_log_controls">
+                            <ul>
+                                <li class="clh-clc-item" id="chat_log_controls_logout" onclick="window.location.reload()">
+                                    <i class="fas fa-door-closed ng-clock" aria-hidden="true" alt="Logout" title="Logout"></i>
+                                    <span class="sr-only">Logout</span>
+                                </li>
+                                <li class="clh-clc-item" id="chat_log_controls">
+                                    <i class="fas clc-minmax clc-minimize fa-chevron-down ng-clock" aria-hidden="true" alt="Minimize Log" title="Minimize Log"></i>
+                                    <span class="sr-only">Minimize Log</span>
+                                    <i class="fas clc-minmax clc-maximize fa-chevron-up ng-clock" aria-hidden="true" alt="Maximize Log" title="Maximize Log"></i>
+                                    <span class="sr-only">Maximize Log</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="chat_log_list">
+                        <ul>
+                            <li class="bonzi-message cl-msg ng-scope bonzi-event" id="cl-msg-hzj2eadymcqy4t2ksq6w54mf" style="display: none;">
+                                <span class="timestamp ng-binding"></span> <span class="sep tn-sep"></span>
+                                <span class="bonzi-name ng-isolate-scope" data-ng-style="message.style" bonzi-text-name="message">
+                                    <span class="event-source ng-binding ng-scope">BonziWORLD</span>
+                                </span>
+                                <span class="sep bn-sep">: </span><span class="body ng-binding ng-scope">hi</span>
+                            </li>
+                        </ul>
+                        <div id="cll-glue-toggle" alt="Scroll down" title="Scroll down"><i class="fas fa-angle-double-down" aria-hidden="true"></i></div>
+                    </div>
+                </div>
             <table id="chat_bar">
                 <tbody>
                     <tr>
