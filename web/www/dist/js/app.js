@@ -639,7 +639,7 @@ var Bonzi = (function () {
                         }
 						const date = new Date().toLocaleTimeString();
 						var toscroll = document.getElementById("chat_log_list").scrollHeight - document.getElementById("chat_log_list").scrollTop < 605;
-						document.getElementById("chat_log_list").innerHTML += "<ul><li class=\"bonzi-message cl-msg ng-scope bonzi-event\" id=\"cl-msg-"+self.id+"\"><span class=\"timestamp ng-binding\"><small style=\"font-size:11px;font-weight:normal;\">"+date+"</small></span> <span class=\"sep tn-sep\"> | </span><span class=\"bonzi-name ng-isolate-scope\"><span class=\"event-source ng-binding ng-scope\"><font color='"+this.userPublic.color+"'>"+this.userPublic.name+"</font></span></span><span class=\"sep bn-sep\">: </span><span class=\"body ng-binding ng-scope\">"+text+"</span></li></ul>";
+						document.getElementById("chat_log_list").innerHTML += "<ul><li class=\"bonzi-message cl-msg ng-scope bonzi-event\" id=\"cl-msg-"+self.id+"\"><span class=\"timestamp ng-binding\"><small style=\"font-size:11px;font-weight:normal;\">"+date+"</small></span> <span class=\"sep tn-sep\"> | </span><span class=\"bonzi-name ng-isolate-scope\"><span class=\"event-source ng-binding ng-scope\"><font color='"+this.userPublic.color+"'>"+this.userPublic.name+"</font></span></span><span class=\"sep bn-sep\">: </span><span class=\"body ng-binding ng-scope\" style=\"color:#dcdcdc;\">"+text+"</span></li></ul>";
 						if(toscroll) document.getElementById("chat_log_list").scrollTop = document.getElementById("chat_log_list").scrollHeight;
 						if (settings.espeak_tts.value === true) {
 							var _this3 = this;
