@@ -1330,7 +1330,6 @@ function youtubeParser(url) {
     var match = url.match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(shorts\/)|(watch\?v=))([^#\&\?]*).*/);
     return !(!match || 11 != match[8].length) && match[8];
 }
-// TODO: implement this correctly so that it activates when someone types a soundcloud or spotify link in chat
 /*function soundcloudParser(url) {
     //var match = url.match(/^.*(soundcloud\.com|snd\.sc)\/(.*));
     return !(!match || 11 != match[3].length) && match[3];
@@ -2164,7 +2163,6 @@ function sendInput() {
     if (($("#chat_message").val(""), text.length > 0)) {
         var youtube = youtubeParser(text);
         if (youtube) return void socket.emit("command", { list: ["youtube", youtube] });
-	// TODO: implement this correctly so that it activates when someone types a soundcloud or spotify link in chat
         /*var soundcloud = soundcloudParser(text);
         if (soundcloud) return void socket.emit("command", { list: ["soundcloud", soundcloud] });
         var spotify = spotifyParser(text);
@@ -2366,15 +2364,33 @@ $(document).mouseup(function() {
 		$(this).after(click_sfx.play());
 	} catch(e) {}
 });
-let maximized = 1;
+let maximized = 0;
 $(document).ready(function () {
     $("#chat_log_controls").on("click", function () {
         maximized = maximized ? 0 : 1;
-		$("#room_info").toggleClass("log-minimized");
-		$("#arcade_icon").toggleClass("log-minimized");
-		$("#themes_icon").toggleClass("log-minimized");
-        $(".chat-log").toggleClass("maximized minimized");
-        $("#chat_log_list").toggleClass("hidden");
+        $(".chat-log").toggleClass("minimized maximized");
+		if(maximized != 1) {
+			$("#room_info").addClass("log-minimized");
+			$("#arcade_icon").addClass("log-minimized");
+			$("#themes_icon").addClass("log-minimized");
+			$("#room_info").removeClass("log-maximized");
+			$("#arcade_icon").removeClass("log-maximized");
+			$("#themes_icon").removeClass("log-maximized");
+		} else {
+			$("#room_info").removeClass("log-minimized");
+			$("#arcade_icon").removeClass("log-minimized");
+			$("#themes_icon").removeClass("log-minimized");
+			$("#room_info").addClass("log-maximized");
+			$("#arcade_icon").addClass("log-maximized");
+			$("#themes_icon").addClass("log-maximized");
+		}
+		if(maximized != 1) {
+			$("#chat_log_list").addClass("hidden");
+			$("#chat_log_list").removeClass("visible");
+		} else {
+			$("#chat_log_list").addClass("visible");
+			$("#chat_log_list").removeClass("hidden");
+		}
     });
 });
 
