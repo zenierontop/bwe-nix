@@ -6500,15 +6500,15 @@
 
     <body>
         <div id="content">
-            <div id="arcade_icon" class="no_selection" alt="Arcade" title="Arcade" onclick='$("#page_arcade_menu").show()'>
+            <div id="arcade_icon" class="no_selection log-minimized" alt="Arcade" title="Arcade" onclick='$("#page_arcade_menu").show()'>
               <img src="./img/icons/other/arcade_v2.png" width="64" draggable="false" /><br />
                 <span id="arcade_label" class="no_selection">Arcade</span>
             </div>
-            <div id="themes_icon" class="no_selection" alt="Themes" title="Themes">
+            <div id="themes_icon" class="no_selection log-minimized" alt="Themes" title="Themes">
                 <img src="./img/icons/other/themes.png" width="64" draggable="false" /><br />
                 <span id="themes_label" class="no_selection">Themes</span>
             </div>
-            <div id="room_info">
+            <div id="room_info" class="log-minimized">
                 Room ID - <span class="room_id">???</span><br />
                 <span id="room_public" class="no_selection">This room is public.</span><span id="room_private" class="no_selection">This room is private.</span>
                 <span id="room_owner" class="no_selection">
@@ -6517,16 +6517,12 @@
                 </span>
             </div>
             <canvas id="bonzi_canvas" width="1020" height="721.6"></canvas>
-				<div class="ng-scope chat-log maximized glued status-idle status-unmuted status-sapi-enabled" id="chat_log">
+				<div class="ng-scope chat-log minimized glued status-idle status-unmuted status-sapi-enabled" id="chat_log">
                     <div id="chat_log_header" class="no_selection">
                         <div class="clh-col" id="chat_log_title" style="padding-top:3.1px;padding-left:7px;"><span>BonziWORLD: Enhanced</span> | <span>Version 1.0.0</span></div>
                         <div class="clh-col" id="chat_log_status"></div>
                         <div class="clh-col" id="chat_log_controls">
                             <ul>
-                                <li class="clh-clc-item" id="chat_log_controls_logout" onclick="window.location.reload()">
-                                    <i class="fas fa-door-closed ng-clock" aria-hidden="true" alt="Logout" title="Logout"></i>
-                                    <span class="sr-only">Logout</span>
-                                </li>
                                 <li class="clh-clc-item" id="chat_log_controls">
                                     <i class="fas clc-minmax clc-minimize fa-chevron-down ng-clock" aria-hidden="true" alt="Minimize Log" title="Minimize Log"></i>
                                     <span class="sr-only">Minimize Log</span>
@@ -6536,7 +6532,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div id="chat_log_list">
+                    <div id="chat_log_list" class="hidden">
                         <ul>
                             <li class="bonzi-message cl-msg ng-scope bonzi-event no_selection" id="cl-msg-hzj2eadymcqy4t2ksq6w54mf">
                                 <span class="timestamp ng-binding"></span> <span class="sep tn-sep"></span>
