@@ -612,6 +612,9 @@ body.vaporwave #chat_bar  {
     background-size: 100% 100%;
     z-index: 999;
 }
+body.vaporwave #chat_log  {
+	margin-bottom: 28px;
+}
 body.vaporwave #chat_tray  {
     background-image: url("../../img/desktop/__Themes/Vaporwave/notif_left-vaporwave.png"), url("../../img/desktop/__Themes/Vaporwave/notif_right-vaporwave.png"), url("../../img/desktop/__Themes/Vaporwave/notif-vaporwave.png");
     background-repeat: no-repeat;
