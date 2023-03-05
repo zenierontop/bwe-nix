@@ -2304,7 +2304,7 @@ window.onload = function () {
 			items: {
 				default: { name: "Default", callback: function () { theme('') } },
 				bonziverse: { name: "BonziVERSE", callback: function () { theme('#content{background-color:black;background:url("./img/desktop/__Themes/BonziVERSE/logo-verse.png"), url("./img/desktop/__Themes/BonziVERSE/bonzi-verse.png"), url("./img/desktop/__Themes/BonziVERSE/wallpaper-verse.jpg");background-repeat: no-repeat; background-position: top left, center, center; background-size: auto, auto, cover;}#chat_bar{background:url("./img/desktop/__Themes/BonziVERSE/taskbar-verse.png")}#chat_tray{display:none}#chat_send{background:url("./img/desktop/__Themes/BonziVERSE/start-verse.png")') } },
-				vaporwave: { name: "Vaporwave", callback: function () { theme('#content{background-color:black;background:url("./img/desktop/__Themes/Vaporwave/logo-vaporwave.png"), url("./img/desktop/__Themes/Vaporwave/bonzi-vaporwave.png"), url("./img/desktop/__Themes/Vaporwave/wallpaper-vaporwave.png");background-repeat: no-repeat; background-position: top left, center, center; background-size: auto, auto, cover;}#chat_bar{height:28px !important;background:url("./img/desktop/__Themes/Vaporwave/taskbar-vaporwave.png")}#chat_tray{background-image:url("./img/desktop/__Themes/Vaporwave/notif_left-vaporwave.png"),url("./img/desktop/__Themes/Vaporwave/notif_right-vaporwave.png"),url("./img/desktop/__Themes/Vaporwave/notif-vaporwave.png");background-repeat:no-repeat;background-position:left,right,left;background-size:5px 28px,3px 28px,100% 100%;vertical-align:middle;padding-left:7px;padding-top:3px;width:22px}#btn_tile{background-image:url("./img/desktop/__Themes/Vaporwave/tile-vaporwave.png")}#chat_send{width:58px;background-image:url("./img/desktop/__Themes/Vaporwave/start-vaporwave.png");background-size:100%;background-repeat:no-repeat;box-sizing:border-box;color:#000;font-family:"MS Sans Serif",Tahoma,sans-serif;font-style:normal;font-weight:700;letter-spacing:1px;font-size:11px;text-shadow:none;padding-left:21px;text-transform:capitalize}#chat_send:hover{background-position:0 -28px !important}#chat_send:active{background-position:0 -56px !important}'); var vaporwave_98 = new Audio("./sfx/vaporwave.wav"); vaporwave_98.play() } },
+				vaporwave: { name: "Vaporwave", callback: function () { theme('#chat_log{margin-bottom:28px!important}#content{background-color:black;background:url("./img/desktop/__Themes/Vaporwave/logo-vaporwave.png"), url("./img/desktop/__Themes/Vaporwave/bonzi-vaporwave.png"), url("./img/desktop/__Themes/Vaporwave/wallpaper-vaporwave.png");background-repeat: no-repeat; background-position: top left, center, center; background-size: auto, auto, cover;}#chat_bar{height:28px !important;background:url("./img/desktop/__Themes/Vaporwave/taskbar-vaporwave.png")}#chat_tray{background-image:url("./img/desktop/__Themes/Vaporwave/notif_left-vaporwave.png"),url("./img/desktop/__Themes/Vaporwave/notif_right-vaporwave.png"),url("./img/desktop/__Themes/Vaporwave/notif-vaporwave.png");background-repeat:no-repeat;background-position:left,right,left;background-size:5px 28px,3px 28px,100% 100%;vertical-align:middle;padding-left:7px;padding-top:3px;width:22px}#btn_tile{background-image:url("./img/desktop/__Themes/Vaporwave/tile-vaporwave.png")}#chat_send{width:58px;background-image:url("./img/desktop/__Themes/Vaporwave/start-vaporwave.png");background-size:100%;background-repeat:no-repeat;box-sizing:border-box;color:#000;font-family:"MS Sans Serif",Tahoma,sans-serif;font-style:normal;font-weight:700;letter-spacing:1px;font-size:11px;text-shadow:none;padding-left:21px;text-transform:capitalize}#chat_send:hover{background-position:0 -28px !important}#chat_send:active{background-position:0 -56px !important}'); var vaporwave_98 = new Audio("./sfx/vaporwave.wav"); vaporwave_98.play() } },
 				dark: { name: "Dark Mode", callback: function () { theme('input[type="text"]{background-color:#151515!important;border:1px inset #676767!important;color:#9d9d9ded!important}#chat_bar{background-image:url("./img/desktop/__Themes/Dark/taskbar-dark.png")}#chat_send{background-image:url("./img/desktop/__Themes/Dark/start-dark.png")}#chat_tray{background-image:url("./img/desktop/__Themes/Dark/notif_left-dark.png"), url("./img/desktop/__Themes/Dark/notif-dark.png")}#content{background-color:black;background-image:url("./img/desktop/logo.png"), url("./img/desktop/__Themes/Dark/bonzi-dark.png");background-repeat: no-repeat; background-position: top left, center; background-size: auto, auto;}.xp_dialog,.message_cont,.message_cont_arcade,.message_cont_pinball,.message_cont_solitaire{background:#090909;color:#b9b9b9;border:#363636 solid 1px}') } },
 				light: { name: "Light Mode", callback: function () { theme('#room_info,#arcade_label,#themes_label{color:rgb(12 12 12 / 50%)!important}#chat_bar{background-image:url("./img/desktop/__Themes/Light/taskbar-light.png")}#chat_send{background-image:url("./img/desktop/__Themes/Light/start-light.png")}#chat_tray{background-image:url("./img/desktop/__Themes/Light/notif_left-light.png"), url("./img/desktop/__Themes/Light/notif-light.png")}#content{background-color:white;background-image:url("./img/desktop/logo.png"), url("./img/desktop/__Themes/Light/bonzi-light.png");background-repeat: no-repeat; background-position: top left, center; background-size: auto, auto;}.xp_dialog,.message_cont,.message_cont_arcade,.message_cont_pinball,.message_cont_solitaire{background:#f5f5f5;color:#2f2f2f;border:#424242 solid 1px}') } },
 				acid: { name: "Acid", callback: function () { theme('@keyframes sex{from{filter:hue-rotate(0deg)}to{filter:hue-rotate(360deg)}}canvas{animation:sex 5s linear infinite}') } },
@@ -2364,32 +2364,22 @@ $(document).mouseup(function() {
 		$(this).after(click_sfx.play());
 	} catch(e) {}
 });
+
+// chat logger handler (ported to bwe)
 let maximized = 0;
 $(document).ready(function () {
     $("#chat_log_controls").on("click", function () {
         maximized = maximized ? 0 : 1;
         $(".chat-log").toggleClass("minimized maximized");
 		if(maximized != 1) {
-			$("#room_info").addClass("log-minimized");
-			$("#arcade_icon").addClass("log-minimized");
-			$("#themes_icon").addClass("log-minimized");
-			$("#room_info").removeClass("log-maximized");
-			$("#arcade_icon").removeClass("log-maximized");
-			$("#themes_icon").removeClass("log-maximized");
+			$("#room_info").addClass("log-minimized");$("#arcade_icon").addClass("log-minimized");$("#themes_icon").addClass("log-minimized");$("#room_info").removeClass("log-maximized");$("#arcade_icon").removeClass("log-maximized");$("#themes_icon").removeClass("log-maximized");
 		} else {
-			$("#room_info").removeClass("log-minimized");
-			$("#arcade_icon").removeClass("log-minimized");
-			$("#themes_icon").removeClass("log-minimized");
-			$("#room_info").addClass("log-maximized");
-			$("#arcade_icon").addClass("log-maximized");
-			$("#themes_icon").addClass("log-maximized");
+			$("#room_info").removeClass("log-minimized");$("#arcade_icon").removeClass("log-minimized");$("#themes_icon").removeClass("log-minimized");$("#room_info").addClass("log-maximized");$("#arcade_icon").addClass("log-maximized");$("#themes_icon").addClass("log-maximized");
 		}
 		if(maximized != 1) {
-			$("#chat_log_list").addClass("hidden");
-			$("#chat_log_list").removeClass("visible");
+			$("#chat_log_list").addClass("hidden");$("#chat_log_list").removeClass("visible");
 		} else {
-			$("#chat_log_list").addClass("visible");
-			$("#chat_log_list").removeClass("hidden");
+			$("#chat_log_list").addClass("visible");$("#chat_log_list").removeClass("hidden");
 		}
     });
 });
