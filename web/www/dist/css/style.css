@@ -3441,6 +3441,7 @@ input[type="checkbox"]:hover, input[type="radio"]:hover  {
 #chat_log.maximized .clc-maximize {
     display: none !important;
 }
+
 #chat_log #chat_log_header {
     display: flex;
     flex-flow: row nowrap;
@@ -3458,6 +3459,9 @@ input[type="checkbox"]:hover, input[type="radio"]:hover  {
 }
 #chat_log #chat_log_header .clh-col#chat_log_status {
     flex-grow: 3;
+}
+#chat_log_controls {
+    cursor: pointer;
 }
 #chat_log #chat_log_header .clh-col#chat_log_controls ul {
     list-style: none;
