@@ -3460,7 +3460,7 @@ input[type="checkbox"]:hover, input[type="radio"]:hover  {
 #chat_log #chat_log_header .clh-col#chat_log_status {
     flex-grow: 3;
 }
-#chat_log_controls {
+#chat_log_controls ul i {
     cursor: pointer;
 }
 #chat_log #chat_log_header .clh-col#chat_log_controls ul {
