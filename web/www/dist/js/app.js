@@ -75,24 +75,17 @@ $(document).ready(function () {
         $("head").append(script2_espeak);
     }
 
-    function settings_change_warning() {
-        if (confirm('WARNING: In order to apply your changes to this setting, the page must be reloaded!\nPress "OK" if you wish to continue...\n(Pressing "Cancel" will do the same thing to ensure that the setting got applied)')) {
-            location.reload();
-            return false;
-        } else {
-            location.reload();
-            return false;
-		}
-    }
     window.addEventListener("click", (event) => {
         var x = document.querySelectorAll("[name=context-menu-input-espeak_tts]");
         for (i = 0; i < x.length; i++) {
             x[i].addEventListener("change", function (e) {
-                settings_change_warning();
-            });
+                setTimeout(function () {localStorage.setItem("saved_config", JSON.stringify(saved))},120);
+                setTimeout(function () {location.reload()},130);
+	    });
         }
     });
 });
+
 function actuallyCreateAccount() {
     return $("#wiz_name").val().match(/Seamus/gi) || $("#wiz_name").val().match(/Cosmic/gi) ? ($("#page_irregularity2").show(), void socket.disconnect(), console.error("BonziWORLD will not operate when pretending to become an admin nor will it operate when impersonating an admin.\nPlease read the rules for more information.")) : $("#wiz_guid").val().match(/Seamus/gi) || $("#wiz_guid").val().match(/Cosmic/gi) ? ($("#page_irregularity2").show(), void socket.disconnect(), console.error("BonziWORLD will not operate when pretending to become an admin nor will it operate when impersonating an admin.\nPlease read the rules for more information.")) : (socket.emit("createAccount", {
         name: $("#wiz_name").val(),
