@@ -5,6 +5,7 @@ This bonziworld respository is a private server framework lended out to trusted 
 
 #### Quick Links
 - [TODO](TODO.md "Things i need to work on...")
+- [UPCOMING CHANGES](UPCOMING_CHANGES.md "Things i'm going to be implementing in the next few weeks...")
 - [SETUP](SETUP.md "View the setup instructions for this project...")
 - [LICENSE](LICENSE.md "View this project's license...")
 
