@@ -2,7 +2,7 @@
 
 <hr>
 
-- [x] Removal of "Dark Red", "Dark Purple" and "god" colors
+- [x] Removal of "Dark Red", "Dark Purple" and "God" colors
 - [ ] Addition of mouth animations to all bonzi colors
 - [ ] Removal of eSpeak
 
