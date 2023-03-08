@@ -15,6 +15,6 @@
 - [ ] Add a chat logger (or port over the one from bonzi.world to classic) [**0% done**]
 - [ ] Add an api for joining rooms (eg. http://localhost/api/room/join:rid) [**0% done**]
 - [ ] Implement session middleware to socket.io [**98% done**]
-- [ ] Add mouth moving animations to all bonzi colors [**42% done**]
+- [ ] Add mouth moving animations to all bonzi colors [**47% done**]
 
 <hr>
