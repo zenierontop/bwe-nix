@@ -865,7 +865,7 @@ var Bonzi = (function () {
                     value: function (vid) {
                         if (!this.mute) {
 							this.$dialog.addClass('bubble_autowidth');
-                            this.$dialogCont.html("\n\t\t\t\t\t<iframe type='text/html' width='480' height='270' scrolling='no' frameborder='no' allow='autoplay' \n\t\t\t\t\tsrc='https://www.youtube.com/embed/" + vid + "?autoplay=1&modestbranding=1&playsinline=0&showinfo=0&enablejsapi=1&origin=" + window.location.origin + "&widgetid=1&color=purple&theme=dark' \n\t\t\t\t\tstyle='width:480px;height:270px; border-radius: 7px;'\n\t\t\t\t\tframeborder='0'\n\t\t\t\t\allow='autoplay; encrypted-media'\n\t\t\t\t\tallowfullscreen='allowfullscreen'\n\t\t\t\t\tmozallowfullscreen='mozallowfullscreen'\n\t\t\t\t\tmsallowfullscreen='msallowfullscreen'\n\t\t\t\t\toallowfullscreen='oallowfullscreen'\n\t\t\t\t\twebkitallowfullscreen='webkitallowfullscreen'\n\t\t\t\t\t></iframe>\n\t\t\t\t"), this.$dialog.show();
+                            this.$dialogCont.html("\n\t\t\t\t\t<iframe type='text/html' width='480' height='270' scrolling='no' frameborder='no' allow='autoplay' \n\t\t\t\t\tsrc='https://www.youtube.com/embed/" + vid.replace(/playlist/gi,"videoseries").replace(/(^\w+:|^)\/.*\.youtube\.com\//, '') + "?autoplay=1&modestbranding=1&playsinline=0&showinfo=0&enablejsapi=1&origin=" + window.location.origin + "&widgetid=1&color=purple&theme=dark' \n\t\t\t\t\tstyle='width:480px;height:270px; border-radius: 7px;'\n\t\t\t\t\tframeborder='0'\n\t\t\t\t\allow='autoplay; encrypted-media'\n\t\t\t\t\tallowfullscreen='allowfullscreen'\n\t\t\t\t\tmozallowfullscreen='mozallowfullscreen'\n\t\t\t\t\tmsallowfullscreen='msallowfullscreen'\n\t\t\t\t\toallowfullscreen='oallowfullscreen'\n\t\t\t\t\twebkitallowfullscreen='webkitallowfullscreen'\n\t\t\t\t\t></iframe>\n\t\t\t\t"), this.$dialog.show();
                         }
                     },
                 },
@@ -1313,8 +1313,9 @@ function s4() {
 }
 function youtubeParser(url) {
 	// added support for yt shorts
-    var match = url.match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(shorts\/)|(watch\?v=))([^#\&\?]*).*/);
-    return !(!match || 11 != match[8].length) && match[8];
+    // added support for playlists
+    var match = url.match(/^.*((youtube|youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(shorts\/)|(playlist\?list=)|(watch\?v=))([^#\&\?]*).*/);
+    return !(!match || 11 != match[9].length) && match[9] || !(!match || 34 != match[9].length) && "playlist?list="+match[9];
 }
 /*function soundcloudParser(url) {
     //var match = url.match(/^.*(soundcloud\.com|snd\.sc)\/(.*));
