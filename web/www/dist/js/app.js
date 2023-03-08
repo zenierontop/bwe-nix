@@ -562,7 +562,7 @@ var Bonzi = (function () {
 						if (settings.espeak_tts.value === false) {
 							var analyser = this.auCtx.createAnalyser();
 							if (this.source && this.analyser) {
-								if (this.color == "purple" || this.color == "red" || this.color == "green" || this.color == "blue" || this.color == "black" || this.color == "brown") {
+								if (this.color == "purple" || this.color == "red" || this.color == "green" || this.color == "blue" || this.color == "black" || this.color == "brown" || this.color == "ghost") {
 									this.freqData = new Uint8Array(this.analyser.frequencyBinCount);
 									this.analyser.getByteFrequencyData(this.freqData);
 									var percent = Math.round(((max(this.freqData) - 128) / 128)*100);
