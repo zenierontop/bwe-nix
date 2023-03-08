@@ -3,11 +3,9 @@
 ### Requirements
 - NodeJS v19 or later
 - Latest release of npm
-- Latest release of MySQL
-- Most recent copy of PHPmyAdmin
 
 #### Requirements (optional)
-- Latest release of Nginx or XAMPP
+- Latest release of Nginx
 
 ### Code Dependencies
 - Sass
@@ -42,11 +40,10 @@ This part is unneeded. The client comes pre-built.
 npm i --force
 node server.js
 ```
-### Server (mysql)
-```
-Guide coming soon...
-This will probably get implemented during march.
-```
+### Server (nginx)
+<pre><span><code><a href="https://www.youtube.com/watch?v=krcYPrjIDzU" alt="Tutorial" title="Tutorial">Tutorial</a>
+</code></span></pre>
+
 After this, BonziWORLD Enhanced will be accessible on port 3000. ([localhost:3000](http://localhost:3000 "localhost on port 3000..."))
 <br><br>
 ## Replit/Glitch
