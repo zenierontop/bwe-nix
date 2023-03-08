@@ -15,11 +15,10 @@ var useSapi5 = false;
 window.gain = 1;
 var usersAmt = 0;
 var enable_skid_protect = true;
-
-
+var LoggedIn = false;
+var Room_ID = "";
 
 // http://gskinner.com/labs/Orcastra/js/Main.js
-
 function max (array) {
 	var max = array[0];
 	var len = array.length;
@@ -79,9 +78,18 @@ $(document).ready(function () {
         var x = document.querySelectorAll("[name=context-menu-input-espeak_tts]");
         for (i = 0; i < x.length; i++) {
             x[i].addEventListener("change", function (e) {
-                setTimeout(function () {localStorage.setItem("saved_config", JSON.stringify(saved))},120);
+                setTimeout(function () {localStorage.setItem("saved_settings", JSON.stringify(saved))},120);
                 setTimeout(function () {location.reload()},130);
 	    });
+        }
+    });
+    window.addEventListener("click", (event) => {
+        var x2 = document.querySelectorAll("[name=context-menu-input-notifications]");
+        for (i = 0; i < x2.length; i++) {
+            x2[i].addEventListener("change", function (e) {
+                Notification.requestPermission().then((result) => {console.log("[BONZI-API]:  " + result)})
+                setTimeout(function () {localStorage.setItem("saved_settings", JSON.stringify(saved))},120);
+    	    });
         }
     });
 });
@@ -118,6 +126,10 @@ const savedDefault = {
 			name: "Typing Indicator",
 			value: true,
 		},
+		notifications: {
+			name: "Notifications",
+			value: false,
+		},
 		espeak_tts: {
 			name: "eSpeak TTS",
 			value: true,
@@ -136,12 +148,13 @@ const savedDefault = {
 		}
 	}
 }
-const saved = JSON.parse(localStorage.getItem("saved_config") || JSON.stringify(savedDefault));
+const saved = JSON.parse(localStorage.getItem("saved_settings") || JSON.stringify(savedDefault));
 setInterval(function () {
 	if(!autosave) return;
-	localStorage.setItem("saved_config", JSON.stringify(saved));
+	localStorage.setItem("saved_settings", JSON.stringify(saved));
 }, 1000);
 const settings = saved.settings;
+
 /*if (settings.audio.value === false) {
 	try {
 		setInterval(function () {document.getElementById("bw_audios").innerHTML = "<p class='no_selection'>You have audios disabled...</p>"}, 1000);
@@ -624,6 +637,7 @@ var Bonzi = (function () {
 							let hex="#AB47BC";
 							if(color=="purple"){return"#AB47BC"}else if(color=="magenta"){return"#FF00FF"}else if(color=="pink"){return"#F43475"}else if(color=="blue"){return"#3865FF"}else if(color=="cyan"){return"#00ffff"}else if(color=="red"){return"#f44336"}else if(color=="orange"){return"#FF7A05"}else if(color=="green"){return"#4CAF50"}else if(color=="lime"){return"#55FF11"}else if(color=="lemon"){return"#AFF314"}else if(color=="yellow"){return"#F1E11E"}else if(color=="brown"){return"#CD853F"}else if(color=="black"){return"#424242"}else if(color=="grey"){return"#828282"}else if(color=="white"){return"#EAEAEA"}else if(color=="ghost"){return"#D77BE7"}else{return hex}
 						}
+                        if(settings.notifications.value === true && LoggedIn === true) {try {new Notification("New Message:", { body: date + " | " + this.userPublic.name + ": " + text, icon: "./img/agents/__closeup/" + this.userPublic.color + ".png" })} catch {}} else {return};
 						var toscroll = document.getElementById("chat_log_list").scrollHeight - document.getElementById("chat_log_list").scrollTop < 605;
 						document.getElementById("chat_log_list").innerHTML += "<ul><li class=\"bonzi-message cl-msg ng-scope bonzi-event\" id=\"cl-msg-"+self.id+"\"><span class=\"timestamp ng-binding\"><small style=\"font-size:11px;font-weight:normal;\">"+date+"</small></span> <span class=\"sep tn-sep\"> | </span><span class=\"bonzi-name ng-isolate-scope\"><span class=\"event-source ng-binding ng-scope\"><font color='"+getBonziHEXColor(this.userPublic.color)+"'>"+this.userPublic.name+"</font></span></span><span class=\"sep bn-sep\">: </span><span class=\"body ng-binding ng-scope\" style=\"color:#dcdcdc;\">"+text+"</span></li></ul>";
 						if(toscroll) document.getElementById("chat_log_list").scrollTop = document.getElementById("chat_log_list").scrollHeight;
@@ -634,9 +648,10 @@ var Bonzi = (function () {
                             (text = replaceAll((text = replaceAll(text, "{NAME}", this.userPublic.name)), "{COLOR}", this.color)),
                             (say = void 0 !== say ? replaceAll((say = replaceAll(say, "{NAME}", this.userPublic.name)), "{COLOR}", this.color) : text.replace("&gt;", "").replace(/~/gi,"?"));
 							var greentext = "&gt;" == (text = linkify(text)).substring(0, 4) || ">" == text[0];
-							text.replaceAll("'", "&apos;");
-							text.replaceAll("\"", "&quot;");
-							text.replaceAll("#", "&num;");
+
+                            (say = say.replace(/{ROOM}/gi, Room_ID));
+                            (text = text.replace(/{ROOM}/gi, Room_ID));
+
 							(say = say.replace(/~/gi,"?")); // OwO
 							
 							(say = say.replace(/bonzi.ga/gi, window.location.host));
@@ -662,6 +677,7 @@ var Bonzi = (function () {
                             (say = say.replace(/wdym/gi, "what do you mean"));
                             (say = say.replace(/idc/gi, "i don't care"));
                             (say = say.replace(/idk/gi, "i don't know"));
+                            (say = say.replace(/btw/gi, "by the way"));
                             (say = say.replace(/idfc/gi, "i don't fucking care"));
                             (say = say.replace(/idfk/gi, "i don't fucking know"));
                             (say = say.replace(/idgaf/gi, "i don't give a fuck"));
@@ -693,9 +709,10 @@ var Bonzi = (function () {
                             (text = replaceAll((text = replaceAll(text, "{NAME}", this.userPublic.name)), "{COLOR}", this.color)),
                             (say = void 0 !== say ? replaceAll((say = replaceAll(say, "{NAME}", this.userPublic.name)), "{COLOR}", this.color) : text.replace("&gt;", "").replace(/~/gi,"?"));
 							var greentext = "&gt;" == (text = linkify(text)).substring(0, 4) || ">" == text[0];
-							text.replaceAll("'", "&apos;");
-							text.replaceAll("\"", "&quot;");
-							text.replaceAll("#", "&num;");
+
+                            (say = say.replace(/{ROOM}/gi, Room_ID));
+                            (text = text.replace(/{ROOM}/gi, Room_ID));
+
 							(say = say.replace(/~/gi,"?")); // OwO
                             
 							(say = say.replace(/bonzi.ga/gi, window.location.host));
@@ -721,6 +738,7 @@ var Bonzi = (function () {
                             (say = say.replace(/wdym/gi, "what do you mean"));
                             (say = say.replace(/idc/gi, "i don't care"));
                             (say = say.replace(/idk/gi, "i don't know"));
+                            (say = say.replace(/btw/gi, "by the way"));
                             (say = say.replace(/idfc/gi, "i don't fucking care"));
                             (say = say.replace(/idfk/gi, "i don't fucking know"));
                             (say = say.replace(/idgaf/gi, "i don't give a fuck"));
@@ -1063,9 +1081,6 @@ var Bonzi = (function () {
             Bonzi
         );
     })(),
-    // thanks seamus for making some fresh code!
-    // i like some ideas from your community edition.
-    // so i am going to use them in BWE_F3 (Project Cobalt).
     BonziData = {
         size: { x: 200, y: 160 },
         sprite: {
@@ -1313,9 +1328,9 @@ function s4() {
         .substring(1);
 }
 function youtubeParser(url) {
-    // added support for yt shorts
+	// added support for yt shorts
     // added support for playlists
-    var match = url.match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(shorts\/)|(playlist\?list=)|(watch\?v=))([^#\&\?]*).*/);
+    var match = url.match(/^.*((youtube|youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(shorts\/)|(playlist\?list=)|(watch\?v=))([^#\&\?]*).*/);
     return !(!match || 11 != match[9].length) && match[9] || !(!match || 34 != match[9].length) && "playlist?list="+match[9];
 }
 /*function soundcloudParser(url) {
@@ -1640,7 +1655,7 @@ document.addEventListener("contextmenu", function (key){
 }, false);
 // "disable" devtools.  fuck off bozoworlders!
 $(document).keydown(function(key) {
-    if (window.location.hostname.includes("localhost") || enable_skid_protect != true) return;
+    if (window.location.hostname.includes("localhost" || "127.0.0.1") || enable_skid_protect != true) return;
     if(key.which==123){
         key.preventDefault();
     }
@@ -1659,16 +1674,14 @@ $(document).keydown(function(key) {
 });
 !function() {
 	function detectDevTool(allow, data) {
-		if (window.location.hostname.includes("localhost") || enable_skid_protect != true) return;
+		if (window.location.hostname.includes("localhost" || "127.0.0.1") || enable_skid_protect != true) return;
 		if(isNaN(+allow)) allow = 100;
 		var start = +new Date();
         setInterval(function(){
             debugger;
             console.profile();
             console.profileEnd();
-            if (console.clear) {
-                console.clear();
-            } 
+            if (console.clear) {console.clear()};
         },100)
         var end = +new Date();
 		if(isNaN(start) || isNaN(end) || end - start > allow) {
@@ -1752,15 +1765,15 @@ var socket = io(server_io, {
     usersPublic = {},
     bonzis = {},
     debug = !0;
-function loadTest() {
+function Load() {
 	if (settings.espeak_tts.value === true) {
 		$("#login_card").hide(),
 		$("#login_error").hide(),
 		$("#login_load").show(),
-		(window.loadTestInterval = rInterval(function () {
+		(window.LoadInterval = rInterval(function () {
 			try {
 				if ((espeak.listVoices(), !loadDone.equals(loadNeeded))) throw "Not done loading.";
-				login(), loadTestInterval.clear();
+				login(), LoadInterval.clear();
 			} catch (err) {
 				console.error(err);
 			}
@@ -1769,10 +1782,10 @@ function loadTest() {
 		$("#login_card").hide(),
 		$("#login_error").hide(),
 		$("#login_load").show(),
-		(window.loadTestInterval = rInterval(function () {
+		(window.LoadInterval = rInterval(function () {
 			try {
 				if ((!loadDone.equals(loadNeeded))) throw "Not done loading.";
-				login(), loadTestInterval.clear();
+				login(), LoadInterval.clear();
 			} catch (err) {
 				console.error(err);
 			}
@@ -1789,16 +1802,19 @@ function login() {
 	if ($("#login_room").val().includes("test")) debug = true;
 	if ($("#login_room").val().includes("debug")) debug = true;
 	login_sfx.play();
+    LoggedIn = true;
 }
 function errorFatal() {
 	var error_sfx = new Audio("./sfx/error.mp3");
     ("none" != $("#page_ban").css("display") && "none" != $("#page_kick").css("display")) || $("#page_error").show();
 	error_sfx.play();
+    LoggedIn = false;
 }
 function errorReboot(p) {
 	var error_sfx = new Audio("./sfx/error.mp3");
     ("none" != $("#page_error").css("display") && "none" != $("#page_kick").css("display")) || $("#page_reboot").show();
 	error_sfx.play();
+    LoggedIn = false;
 }
 
 function bzSetup() {
@@ -1813,6 +1829,7 @@ function bzSetup() {
 			$("#room_public")[data.isPublic ? "show" : "hide"](),
 			$("#room_private")[data.isPublic ? "hide" : "show"](),
 			$(".room_id").text(data.room);
+            Room_ID = data.room;
 		}),
 	window.content = $("#content")[0],
         socket.on("updateAll", function (data) {
@@ -1972,7 +1989,10 @@ function bzSetup() {
 	}),
         socket.on("leave", function (data) {
             var b = bonzis[data.guid];
-            setTimeout(function () {var surf_gone_sfx = new Audio("./sfx/agents/bye.mp3"); surf_gone_sfx.play()}, 600);
+            setTimeout(function () {
+                var surf_gone_sfx = new Audio("./sfx/agents/bye.mp3");
+                surf_gone_sfx.play();
+            }, 600);
             void 0 !== b &&
                 b.exit(
                     function (data) {
@@ -2087,7 +2107,7 @@ $(document).ready(function () {
     });
 }),
 $(function () {
-    $("#login_go").click(loadTest);
+    $("#login_go").click(Load);
     $("#login_name, #login_room").keypress(function (e) {
         13 == e.which && login();
     }),
