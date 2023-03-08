@@ -7,6 +7,8 @@
 #### Requirements (optional)
 - Latest release of Nginx
 
+<br>
+
 ### Code Dependencies
 - Sass
 - Git
