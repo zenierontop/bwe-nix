@@ -371,18 +371,7 @@ var Bonzi = (function () {
 					}),
                 (this.needsUpdate = !1);
                 this.runSingleEvent([{ type: "anim", anim: "surf_intro", ticks: 30 }]);
-                setTimeout(function () {
-                    if (_this2.color == "god") {
-                        var god_surf_sfx = new Audio("./sfx/agents/god/god_surfintro.mp3");
-                        god_surf_sfx.play();
-                    }
-                }, 100);
-                setTimeout(function () {
-                    if (_this2.color != "god") {
-                            var jump_off_sfx = new Audio("./sfx/agents/jump_off.mp3");
-                            jump_off_sfx.play();
-					}
-                }, 3000);
+                setTimeout(function () {var jump_off_sfx = new Audio("./sfx/agents/jump_off.mp3"); jump_off_sfx.play()}, 3000);
         }
         return (
             _createClass(Bonzi, [
@@ -1483,7 +1472,7 @@ function linkify(text) {
             return (
                 (this.framerate = 1 / 15),
                 (this.spriteSheets = {}),
-				(this.sprites = ["black","grey","white","ghost","blue","cyan","brown","green","lime","purple","red","orange","yellow","lemon","pink","pope","god"]),
+				(this.sprites = ["black","grey","white","ghost","blue","cyan","brown","green","lime","purple","red","orange","yellow","lemon","pink","pope"]),
                 (this.prepSprites = function () {
 					for (var spriteColors = this.sprites, i = 0; i < spriteColors.length; i++) {
 						var color = spriteColors[i],
@@ -1612,8 +1601,8 @@ function linkify(text) {
     Object.defineProperty(Array.prototype, "equals", { enumerable: !1 });
 var undefined,
     loadQueue = new createjs.LoadQueue(),
-    loadDone = ["bonziBlack", "bonziBlue", "bonziBrown", "bonziGreen", "bonziPurple", "bonziRed", "bonziOrange", "bonziYellow", "bonziWhite", "bonziGrey", "bonziGhost", "bonziLime", "bonziMagenta", "bonziLemon", "bonziGod", "bonziCyan", "bonziPink"],
-    loadNeeded = ["bonziBlack", "bonziBlue", "bonziBrown", "bonziGreen", "bonziPurple", "bonziRed", "bonziOrange", "bonziYellow", "bonziWhite", "bonziGrey", "bonziGhost", "bonziLime", "bonziMagenta", "bonziLemon", "bonziGod", "bonziCyan", "bonziPink"];
+    loadDone = ["bonziBlack", "bonziBlue", "bonziBrown", "bonziGreen", "bonziPurple", "bonziRed", "bonziOrange", "bonziYellow", "bonziWhite", "bonziGrey", "bonziGhost", "bonziLime", "bonziMagenta", "bonziLemon", "bonziCyan", "bonziPink"],
+    loadNeeded = ["bonziBlack", "bonziBlue", "bonziBrown", "bonziGreen", "bonziPurple", "bonziRed", "bonziOrange", "bonziYellow", "bonziWhite", "bonziGrey", "bonziGhost", "bonziLime", "bonziMagenta", "bonziLemon", "bonziCyan", "bonziPink"];
 function loadBonzis(callback) {
     loadQueue.loadManifest([
 		{ id: "bonziBlack", src: "./img/agents/black.png" },
@@ -1630,7 +1619,6 @@ function loadBonzis(callback) {
 		{ id: "bonziLime", src: "./img/agents/lime.png" },
 		{ id: "bonziMagenta", src: "./img/agents/magenta.png" },
 		{ id: "bonziLemon", src: "./img/agents/lemon.png" },
-		{ id: "bonziGod", src: "./img/agents/god.png" },
 		{ id: "bonziCyan", src: "./img/agents/cyan.png" },
 		{ id: "bonziPink", src: "./img/agents/pink.png" },
 	]),
@@ -1982,10 +1970,7 @@ function bzSetup() {
 	}),
         socket.on("leave", function (data) {
             var b = bonzis[data.guid];
-            setTimeout(function () {
-                var surf_gone_sfx = new Audio("./sfx/agents/bye.mp3");
-                surf_gone_sfx.play();
-            }, 600);
+            setTimeout(function () {var surf_gone_sfx = new Audio("./sfx/agents/bye.mp3"); surf_gone_sfx.play()}, 600);
             void 0 !== b &&
                 b.exit(
                     function (data) {
