@@ -1314,7 +1314,7 @@ function s4() {
 function youtubeParser(url) {
 	// added support for yt shorts
     // added support for playlists
-    var match = url.match(/^.*((youtube|youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(shorts\/)|(playlist\?list=)|(watch\?v=))([^#\&\?]*).*/);
+    var match = url.match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(shorts\/)|(playlist\?list=)|(watch\?v=))([^#\&\?]*).*/);
     return !(!match || 11 != match[9].length) && match[9] || !(!match || 34 != match[9].length) && "playlist?list="+match[9];
 }
 /*function soundcloudParser(url) {
