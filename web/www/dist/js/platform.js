@@ -1,18 +1,18 @@
 var isMobileApp = false;
 var isApp = false;
-var isDesktop = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i) == null;
 
+var isDesktop = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i) == null;
+var isiOS = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)/i) != null;
 var isFirefoxBrowser = /Firefox/.test(navigator.userAgent)
 var isChromeBrowser = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
 var isEdgeBrowser = /Edg/.test(navigator.userAgent);
+
 var urlFirefox = "";
 var urlEdge = "";
 var urlOpera = "";
 var urlChrome = "";
 var urlGPlay = "";
 var urlAppStore = "";
-
-var isiOS = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)/i) != null;
 
 
 $(function() {
