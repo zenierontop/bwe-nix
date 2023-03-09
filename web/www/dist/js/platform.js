@@ -18,10 +18,7 @@ var urlAppStore = "";
 $(function() {
 	var support = {
 		AudioContext: {
-			supported: typeof (
-						window.AudioContext ||
-						window.webkitAudioContext
-					) != "undefined",
+			supported: typeof (window.AudioContext || window.webkitAudioContext) != "undefined",
 			message: "Your browser does not support the Web Audio API."
 		}
 	};
