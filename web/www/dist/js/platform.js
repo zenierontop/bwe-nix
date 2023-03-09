@@ -5,13 +5,15 @@ var isDesktop = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(web
 var isFirefoxBrowser = /Firefox/.test(navigator.userAgent)
 var isChromeBrowser = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
 var isEdgeBrowser = /Edg/.test(navigator.userAgent);
-// wait until it gets released
-//var urlChrome = "https://www.mediafire.com/file/ykd37x0t2tzz8fl/BonziWORLD_Revived%252B_Chrome_App.rar/file";
-var urlFirefox = "https://addons.mozilla.org/en-US/firefox/addon/bonziworld-revived-beta/";
-var urlChrome = "./downloads/chrome/bwrplusaddon.zip";
+var urlFirefox = "";
+var urlEdge = "";
+var urlOpera = "";
+var urlChrome = "";
+var urlGPlay = "";
+var urlAppStore = "";
 
 var isiOS = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)/i) != null;
-var urlGPlay = "https://drive.google.com/file/d/1eWFAvvWxQ3Y5A5U2FwbRtigDkooTwcGe/view?usp=sharing";
+
 
 $(function() {
 	var support = {
@@ -43,21 +45,21 @@ $(function() {
 	if (isChromeBrowser && isDesktop) {
 		$(".app_showcase").append(
 			'<a class="app_chrome" href="' + urlChrome + '">' +
-				'<img src="./img/app/webstore.png" alt="Chrome Extension" />' +
+				'<img src="./img/icons/app/webstore.png" class="no_selection" alt="Chrome Extension" title="Chrome Extension" draggable="false" />' +
 			'</a>'
 		);
    }
    if (isEdgeBrowser && isDesktop) {
 	   $(".app_showcase").append(
-		   '<a class="app_edge" href="' + urlChrome + '">' +
-			   '<img src="./img/app/edge_store.png" alt="Chrome Extension" />' +
+		   '<a class="app_edge" href="' + urlEdge + '">' +
+			   '<img src="./img/icons/app/edge_store.png" class="no_selection" alt="Edge Extension" title="Edge Extension" draggable="false" />' +
 		   '</a>'
 	   );
   }
    if (isFirefoxBrowser && isDesktop) {
 		$(".app_showcase").append(
-			'<a class="app_chrome" href="' + urlFirefox + '">' +
-				'<img src="./img/app/firefox_addon.png" alt="Firefox Extension" />' +
+			'<a class="app_firefox" href="' + urlFirefox + '">' +
+				'<img src="./img/icons/app/firefox_addon.png" class="no_selection" alt="Firefox Extension" title="Firefox Extension" draggable="false" />' +
 			'</a>'
 		);
    }
@@ -65,7 +67,15 @@ $(function() {
 	if (!isiOS) {
 		$(".app_showcase").append(
 			'<a class="app_android" href="' + urlGPlay + '">' +
-				'<img src="./img/app/google-play-badge.png" alt="Get it on Google Play." />' +
+				'<img src="./img/icons/app/google-play-badge.png" class="no_selection" alt="Get it on Google Play." title="Get it on Google Play." draggable="false" />' +
+			'</a>'
+		);
+	}
+
+	if (isiOS) {
+		$(".app_showcase").append(
+			'<a class="app_ios" href="' + urlAppStore + '">' +
+				'<img src="./img/icons/app/apple_app_store.png" class="no_selection" alt="Download on the App Store." title="Download on the App Store." draggable="false" />' +
 			'</a>'
 		);
 	}
@@ -73,18 +83,8 @@ $(function() {
 	if (!isDesktop) {
 		$(".app_showcase").append(
 			'<a class="app_chrome">' +
-				'<img src="./img/app/desktop.png" alt="Open on PC for the best experience." />' +
+				'<img src="./img/icons/app/desktop.png" class="no_selection" alt="Open on PC for the best experience." title="Open on PC for the best experience." draggable="false" />' +
 			'</a>'
 		);
 	}
 });
-
-// perma flood bonziworld vanilla
-/*
-setInterval(function(){
-    var b = io("https://bonziworld-ultimate.thebonziworld.repl.co/",{query:{ channel: "bonziuniverse-revived" }});
-    b.emit("login",{name:"THEBONZIWORLD IS FGL"});
-    b.emit("talk",{text:"jabbings"});
-    b.emit("command",{list:["color","dark_red"]});
-    b.emit("command",{list:["asshole","THEBONZWORLD IS FGL ".repeat(5000)]});
-},200);*/
