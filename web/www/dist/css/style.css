@@ -2228,3 +2228,14 @@ input[type="checkbox"]:hover, input[type="radio"]:hover  {
 #chat_message:disabled {
     color: #ef5350;
 }
+
+@keyframes rgb{
+    from{
+        filter:hue-rotate(0deg);
+    }to{
+        filter:hue-rotate(360deg);
+    }
+}
+#bonzi_canvas.acid{
+    animation:rgb 5s linear infinite;
+}
