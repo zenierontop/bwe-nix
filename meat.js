@@ -684,6 +684,12 @@ let userCommands = {
             guid: this.guid,
         });
     },
+    arcade: function () {
+        this.socket.emit("arcade");
+    },
+    acid: function () {
+        this.socket.emit("acid");
+    },
     kick: function (data) {
         if (this.private.runlevel < 3) {
             this.socket.emit("alert", "This command requires administrator privileges");
