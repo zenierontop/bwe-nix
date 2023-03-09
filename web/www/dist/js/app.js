@@ -50,6 +50,11 @@ enterFullscreen = (div) => {
     rfs.call(el, Element.ALLOW_KEYBOARD_INPUT);
 };
 
+// spoof license
+// cuz fuck paywalls  >:)
+document.addEventListener("DOMContentLoaded", (event) => {
+    window.FontAwesomeKitConfig.license = "pro";
+});
 
 
 // TODO: use new audio processor crap to get rid of annoying warnings in console?
@@ -2158,9 +2163,6 @@ $(function () {
     });
     socket.on("acid", function() {
         $("#bonzi_canvas").toggleClass("acid");
-    });
-    socket.on("arcade", function() {
-        $("#page_arcade_menu").show();
     });
 }),
 //var usersAmt = 0,
