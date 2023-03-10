@@ -1808,6 +1808,23 @@ function login() {
     setTimeout(function () {socket.emit("login", { name: $("#login_name").val(), room: $("#login_room").val() }), bzSetup()}, 954);
 	if ($("#login_room").val().includes("test")) debug = true;
 	if ($("#login_room").val().includes("debug")) debug = true;
+    var date = new Date();
+    date.setDate(new Date().getDate() + 365);
+    if(document.cookie == ''){
+        if($("#login_name").val() == "") {
+            document.cookie = "name=Anonymous; expires="+date;
+        } else {
+            document.cookie = "name="+encodeURIComponent($("#login_name").val())+" ;expires="+ date
+        };
+    } else {
+        var q = document.cookie.split(" ");
+        if($("#login_name").val() == "") {
+            q[0] = "name=Anonymous"
+        } else {
+            q[0] = "name="+encodeURIComponent($("#login_name").val());
+            document.cookie = q.join(" ");
+        }
+    }
 	login_sfx.play();
     LoggedIn = true;
 }
