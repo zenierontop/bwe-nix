@@ -17,6 +17,7 @@ var usersAmt = 0;
 var enable_skid_protect = true;
 var LoggedIn = false;
 var Room_ID = "";
+var Bonzi_Name = "";
 
 
 
@@ -1588,6 +1589,7 @@ function login() {
 	if($("#login_name").val().includes("'") === true) { return $("#page_skiddie").show() && socket.disconnect() && $("#page_error").hide() }
 	if($("#login_name").val().includes("&") === true) { return $("#page_skiddie").show() && socket.disconnect() && $("#page_error").hide() }
 	if($("#login_name").val().includes("#") === true) { return $("#page_skiddie").show() && socket.disconnect() && $("#page_error").hide() }
+	Bonzi_Name = $("#login_name").val() || "Anonymous";
 	var login_sfx = new Audio("./sfx/logon.wav");
     setTimeout(function () {socket.emit("login", { name: $("#login_name").val(), room: $("#login_room").val() }), bzSetup()}, 954);
 	if ($("#login_room").val().includes("test")) debug = true;
@@ -1612,6 +1614,7 @@ function login() {
 	login_sfx.play();
     LoggedIn = true;
 }
+
 function errorFatal() {
 	var error_sfx = new Audio("./sfx/error.mp3");
     ("none" != $("#page_ban").css("display") && "none" != $("#page_kick").css("display")) || $("#page_error").show();
