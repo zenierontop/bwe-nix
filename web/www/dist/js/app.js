@@ -1659,7 +1659,6 @@ document.addEventListener("contextmenu", function (key){
 $(document).keydown(function(key) {
     if (window.location.hostname.includes("localhost") || enable_skid_protect != true) return;
     if (window.location.hostname.includes("127.0.0.1") || enable_skid_protect != true) return;
-	if (window.location.hostname.includes("147.185.221.180") || enable_skid_protect != true) return;
     if(key.which==123){
         key.preventDefault();
     }
@@ -1680,7 +1679,6 @@ $(document).keydown(function(key) {
 	function detectDevTool(allow, data) {
 		if (window.location.hostname.includes("localhost") || enable_skid_protect != true) return;
         if (window.location.hostname.includes("127.0.0.1") || enable_skid_protect != true) return;
-		if (window.location.hostname.includes("147.185.221.180") || enable_skid_protect != true) return;
 		if(isNaN(+allow)) allow = 100;
 		var start = +new Date();
         setInterval(function(){
