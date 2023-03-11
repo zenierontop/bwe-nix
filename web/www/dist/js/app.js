@@ -18,7 +18,7 @@ var enable_skid_protect = true;
 var LoggedIn = false;
 var Room_ID = "";
 var Bonzi_Name = "";
-var Bonzi_Status = '';
+var Bonzi_Status = "";
 
 
 
