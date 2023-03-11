@@ -18,6 +18,7 @@ var enable_skid_protect = true;
 var LoggedIn = false;
 var Room_ID = "";
 var Bonzi_Name = "";
+var Bonzi_Status = '';
 
 
 
@@ -635,6 +636,7 @@ var Bonzi = (function () {
                 {
                     key: "updateStatus",
                     value: function(data) {
+						Bonzi_Status = data || "No Status Set";
 							$(function() {
 								$('.bonzi_status').each(function() {
 									if ($(this).html() == "") {
