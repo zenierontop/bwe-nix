@@ -126,6 +126,42 @@
 
     <body>
         <div id="content">
+		<div id="debug-window" class="no_selection" style="display:none;">
+			<table style="width:100%">
+				<tbody>
+					<tr>
+						<th>Debug Options</th>
+					</tr>
+				</tbody>
+			</table>
+			<br>
+			<ul>
+				<ol>
+				
+				</ol>
+			</ul>
+			<div id="debug-device-stats">
+			</div>
+			<div id="debug-animation-control">
+				<div class="left">
+						<span>
+							Loop: <input type="checkbox" id="check_loop" onclick="" alt="Loop Animation" title="Loop Animation">
+							<br>
+							Reverse: <input type="checkbox" id="check_reverse" onclick="" alt="Reverse Animation" title="Reverse Animation">
+							<br>
+							FWD: <input type="checkbox" id="check_fwd" onclick="" alt="Play FWD Animations" title="Play FWD Animations">
+						</span>
+						<a class="play" alt="Play Animation" title="Play Animation">Play</a>
+						<a class="pause" alt="Pause Animation" title="Pause Animation">Pause</a>
+				</div>
+				<div class="center">
+						<span>
+							<input type="range" id="speed" name="speed" min="0" max="100" value="90" step="10" alt="Animation Speed" title="Animation Speed">
+						</span>
+				</div>
+			</div>
+
+		</div>
         <div id="desktop_icons">
             <div id="arcade_icon" class="no_selection log-minimized" alt="Arcade" title="Arcade" onclick='$("#page_arcade_menu").show()'>
               <img src="./img/icons/other/arcade_v2.png" width="64" draggable="false" /><br />
@@ -143,6 +179,7 @@
                     You are the owner of this room.
                 </span>
             </div>
+		</div>
             <canvas id="bonzi_canvas" width="1020" height="721.6"></canvas>
 				<div class="ng-scope chat-log minimized glued status-idle status-unmuted status-sapi-enabled" id="chat_log">
                     <div id="chat_log_header" class="no_selection">
