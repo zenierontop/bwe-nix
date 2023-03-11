@@ -18,6 +18,8 @@ var enable_skid_protect = true;
 var LoggedIn = false;
 var Room_ID = "";
 
+
+
 // http://gskinner.com/labs/Orcastra/js/Main.js
 function max (array) {
 	var max = array[0];
@@ -50,50 +52,16 @@ enterFullscreen = (div) => {
     rfs.call(el, Element.ALLOW_KEYBOARD_INPUT);
 };
 
-// spoof license
-// cuz fuck paywalls  >:)
-document.addEventListener("DOMContentLoaded", (event) => {
-    window.FontAwesomeKitConfig.license = "pro";
-});
-
 
 // TODO: use new audio processor crap to get rid of annoying warnings in console?
 const auCtx = new(window.AudioContext || window.webkitAudioContext)();
 $(document).ready(function () {
-    if (settings.espeak_tts.value === false) {
-        var script1 = $('<script id="speakjs_script_1" type="text/javascript" src="./dist/js/lib/tts/speakjs/speakClient.js"></script>');
-        var script2 = $('<script id="speakjs_script_2" type="text/javascript" src="./dist/js/lib/tts/speakjs/speakGenerator.js"></script>');
-		var script3 = $('<script id="speakjs_script_3" type="text/javascript" src="./dist/js/lib/tts/speakjs/speakWorker.js"></script>');
-        $("#espeak_script_1").remove();
-        $("#espeak_script_2").remove();
-		$("head").append(script1);
-        $("head").append(script2);
-		$("head").append(script3);
-    } else {
-        var script1_espeak = $('<script id="espeak_script_1" type="text/javascript" src="./dist/js/lib/tts/espeak/espeak.js"></script>');
-        var script2_espeak = $('<script id="espeak_script_2" type="text/javascript">var espeak = new Espeak("./dist/js/lib/tts/espeak/espeak.worker.js")</script>');
-        $("#speakjs_script_1").remove();
-        $("#speakjs_script_2").remove();
-		$("#speakjs_script_3").remove();
-        $("head").append(script1_espeak);
-        $("head").append(script2_espeak);
-    }
-
-    window.addEventListener("click", (event) => {
-        var x = document.querySelectorAll("[name=context-menu-input-espeak_tts]");
-        for (i = 0; i < x.length; i++) {
-            x[i].addEventListener("change", function (e) {
-                setTimeout(function () {localStorage.setItem("saved_settings", JSON.stringify(saved))},120);
-                setTimeout(function () {location.reload()},130);
-	    });
-        }
-    });
     window.addEventListener("click", (event) => {
         var x2 = document.querySelectorAll("[name=context-menu-input-notifications]");
         for (i = 0; i < x2.length; i++) {
             x2[i].addEventListener("change", function (e) {
                 Notification.requestPermission().then((result) => {console.log("[BONZI-API]:  " + result)})
-                setTimeout(function () {localStorage.setItem("saved_settings", JSON.stringify(saved))},120);
+                setTimeout(function () {localStorage.setItem("saved_options", JSON.stringify(saved))},120);
     	    });
         }
     });
@@ -135,10 +103,6 @@ const savedDefault = {
 			name: "Notifications",
 			value: false,
 		},
-		espeak_tts: {
-			name: "eSpeak TTS",
-			value: true,
-		},
 		/*images: {
 			name: "Show Images",
 			value: true,
@@ -153,10 +117,10 @@ const savedDefault = {
 		}
 	}
 }
-const saved = JSON.parse(localStorage.getItem("saved_settings") || JSON.stringify(savedDefault));
+const saved = JSON.parse(localStorage.getItem("saved_options") || JSON.stringify(savedDefault));
 setInterval(function () {
 	if(!autosave) return;
-	localStorage.setItem("saved_settings", JSON.stringify(saved));
+	localStorage.setItem("saved_options", JSON.stringify(saved));
 }, 1000);
 const settings = saved.settings;
 
@@ -512,16 +476,10 @@ var Bonzi = (function () {
                 {
                     key: "stopSpeaking",
                     value: function () {
-						if (settings.espeak_tts.value === true) {
-							try {
-								BonziHandler.stop(this.speakID);
-							} catch (e) {}
-						} else {
 							this.goingToSpeak = !1;
 							try {
 								this.voiceSource.stop();
 							} catch (e) {}
-						}
                     },
                 },
                 {
@@ -566,7 +524,6 @@ var Bonzi = (function () {
                     key: "update",
                     value: function () {
                         this._updateStatus();
-						if (settings.espeak_tts.value === false) {
 							var analyser = this.auCtx.createAnalyser();
 							if (this.source && this.analyser) {
 									this.freqData = new Uint8Array(this.analyser.frequencyBinCount);
@@ -605,7 +562,6 @@ var Bonzi = (function () {
 										} 
 									}
 							}
-						}
                         if (this.run) {
                             if (
                                 (0 !== this.eventQueue.length && this.eventQueue[0].index >= this.eventQueue[0].list.length && this.eventQueue.splice(0, 1), (this.event = this.eventQueue[0]), 0 !== this.eventQueue.length && this.eventRun)
@@ -632,19 +588,15 @@ var Bonzi = (function () {
                     value: function (text, say, allowHtml) {
 						var self = this;
                         this._updateStatus();
-						if (this.aud != null) {
-                            this.aud.pause();
-                        }
 						const date = new Date().toLocaleTimeString();
 						function getBonziHEXColor(color) {
 							let hex="#AB47BC";
 							if(color=="purple"){return"#AB47BC"}else if(color=="magenta"){return"#FF00FF"}else if(color=="pink"){return"#F43475"}else if(color=="blue"){return"#3865FF"}else if(color=="cyan"){return"#00ffff"}else if(color=="red"){return"#f44336"}else if(color=="orange"){return"#FF7A05"}else if(color=="green"){return"#4CAF50"}else if(color=="lime"){return"#55FF11"}else if(color=="yellow"){return"#F1E11E"}else if(color=="brown"){return"#CD853F"}else if(color=="black"){return"#424242"}else if(color=="grey"){return"#828282"}else if(color=="white"){return"#EAEAEA"}else if(color=="ghost"){return"#D77BE7"}else{return hex}
 						}
-                        if(settings.notifications.value === true && LoggedIn === true) {try {new Notification("Room ID: " + Room_ID, { body: date + " | " + this.userPublic.name + ": " + text, icon: "./img/agents/__closeup/" + this.userPublic.color + ".png" })} catch {}} else {return};
+                        if(settings.notifications.value === true && LoggedIn === true) {try {new Notification("Room ID: " + Room_ID, { body: date + " | " + this.userPublic.name + ": " + text, icon: "./img/agents/__closeup/" + this.userPublic.color + ".png" })} catch {}};
 						var toscroll = document.getElementById("chat_log_list").scrollHeight - document.getElementById("chat_log_list").scrollTop < 605;
 						document.getElementById("chat_log_list").innerHTML += "<ul><li class=\"bonzi-message cl-msg ng-scope bonzi-event\" id=\"cl-msg-"+self.id+"\"><span class=\"timestamp ng-binding\"><small style=\"font-size:11px;font-weight:normal;\">"+date+"</small></span> <span class=\"sep tn-sep\"> | </span><span class=\"bonzi-name ng-isolate-scope\"><span class=\"event-source ng-binding ng-scope\"><font color='"+getBonziHEXColor(this.userPublic.color)+"'>"+this.userPublic.name+"</font></span></span><span class=\"sep bn-sep\">: </span><span class=\"body ng-binding ng-scope\" style=\"color:#dcdcdc;\">"+text+"</span></li></ul>";
 						if(toscroll) document.getElementById("chat_log_list").scrollTop = document.getElementById("chat_log_list").scrollHeight;
-						if (settings.espeak_tts.value === true) {
 							var _this3 = this;
 							this.usingYTAlready = false;
 							(allowHtml = allowHtml || !1),
@@ -652,110 +604,7 @@ var Bonzi = (function () {
                             (say = void 0 !== say ? replaceAll((say = replaceAll(say, "{NAME}", this.userPublic.name)), "{COLOR}", this.color) : text.replace("&gt;", "").replace(/~/gi,"?"));
 							var greentext = "&gt;" == (text = linkify(text)).substring(0, 4) || ">" == text[0];
 
-                            (say = say.replace(/{ROOM}/gi, Room_ID));
-                            (text = text.replace(/{ROOM}/gi, Room_ID));
-
-							(say = say.replace(/~/gi,"?")); // OwO
-							
-							(say = say.replace(/bonzi.ga/gi, window.location.host));
-							(say = say.replace(/bonzi.lol/gi, window.location.host));
-							(text = text.replace(/bonzi.ga/gi, window.location.host));
-							(text = text.replace(/bonzi.lol/gi, window.location.host));
-							
-							(text = text.replace(/'/gi, "&apos;"));
-							(text = text.replace(/"/gi, "&quot;"));
-							(text = text.replace(/#/gi, "&num;"));
-                            
-                            (say = say.replace(/bwe/gi, "bonziworld enhanced."));
-                            (say = say.replace(/bwr/gi, "bonziworld revived."));
-							
-                            (say = say.replace(/&amp;/gi, "and"));
-                            (say = say.replace(/&num;/gi, "hash tag"));
-                            (say = say.replace(/&gt;/gi, "greater than"));
-                            (say = say.replace(/&lt;/gi, "less than"));
-                            (say = say.replace(/&gt/gi, "greater than"));
-                            (say = say.replace(/&lt/gi, "less than"));
-                            (say = say.replace(/TTS/g, "text to speech"));
-                            (say = say.replace(/tts/g, "text to speech"));
-                            (say = say.replace(/wdym/gi, "what do you mean"));
-                            (say = say.replace(/idc/gi, "i don't care"));
-                            (say = say.replace(/idk/gi, "i don't know"));
-                            (say = say.replace(/btw/gi, "by the way"));
-                            (say = say.replace(/idfc/gi, "i don't fucking care"));
-                            (say = say.replace(/idfk/gi, "i don't fucking know"));
-                            (say = say.replace(/idgaf/gi, "i don't give a fuck"));
-                            // Time zones
-                            (say = say.replace(/PST/g, "pacific standard time"));
-                            (say = say.replace(/MST/g, "mountain standard time"));
-                            (say = say.replace(/CST/g, "central standard time"));
-                            (say = say.replace(/EST/g, "eastern standard time"));
-                            (say = say.replace(/AST/g, "alantic standard time"));
-                            (say = say.replace(/PDT/g, "pacific daylight time"));
-                            (say = say.replace(/MDT/g, "mountain daylight time"));
-                            (say = say.replace(/CDT/g, "central daylight time"));
-                            (say = say.replace(/EDT/g, "eastern daylight time"));
-                            (say = say.replace(/ADT/g, "alantic daylight time"));
-
-                            
-							this.$dialogCont[allowHtml ? "html" : "text"](text)[greentext ? "addClass" : "removeClass"]("bubble_greentext").removeClass("bubble_autowidth").removeClass("bubble_media_player").css("display", "block"),
-                            this.$dialog.removeClass('bubble_autowidth');
-                            this.$dialog.removeClass('bubble_bubble_media_player');
-                            this.stopSpeaking(),
-								text.startsWith("- ") || 
-									(this.speakID = BonziHandler.speak(say, this.userPublic.speed, this.userPublic.pitch, function (text) {
-										text && _this3.clearDialog(); 
-									}));
-						} else {
-							var _this3 = this;
-							this.usingYTAlready = false;
-							(allowHtml = allowHtml || !1),
-                            (text = replaceAll((text = replaceAll(text, "{NAME}", this.userPublic.name)), "{COLOR}", this.color)),
-                            (say = void 0 !== say ? replaceAll((say = replaceAll(say, "{NAME}", this.userPublic.name)), "{COLOR}", this.color) : text.replace("&gt;", "").replace(/~/gi,"?"));
-							var greentext = "&gt;" == (text = linkify(text)).substring(0, 4) || ">" == text[0];
-
-                            (say = say.replace(/{ROOM}/gi, Room_ID));
-                            (text = text.replace(/{ROOM}/gi, Room_ID));
-
-							(say = say.replace(/~/gi,"?")); // OwO
-                            
-							(say = say.replace(/bonzi.ga/gi, window.location.host));
-							(say = say.replace(/bonzi.lol/gi, window.location.host));
-							(text = text.replace(/bonzi.ga/gi, window.location.host));
-							(text = text.replace(/bonzi.lol/gi, window.location.host));
-							
-							(text = text.replace(/'/gi, "&apos;"));
-							(text = text.replace(/"/gi, "&quot;"));
-							(text = text.replace(/#/gi, "&num;"));
-
-                            (say = say.replace(/bwe/gi, "bonziworld enhanced."));
-                            (say = say.replace(/bwr/gi, "bonziworld revived."));
-							
-                            (say = say.replace(/&amp;/gi, "and"));
-                            (say = say.replace(/&num;/gi, "hash tag"));
-                            (say = say.replace(/&gt;/gi, "greater than"));
-                            (say = say.replace(/&lt;/gi, "less than"));
-                            (say = say.replace(/&gt/gi, "greater than"));
-                            (say = say.replace(/&lt/gi, "less than"));
-                            (say = say.replace(/TTS/g, "text to speech"));
-                            (say = say.replace(/tts/g, "text to speech"));
-                            (say = say.replace(/wdym/gi, "what do you mean"));
-                            (say = say.replace(/idc/gi, "i don't care"));
-                            (say = say.replace(/idk/gi, "i don't know"));
-                            (say = say.replace(/btw/gi, "by the way"));
-                            (say = say.replace(/idfc/gi, "i don't fucking care"));
-                            (say = say.replace(/idfk/gi, "i don't fucking know"));
-                            (say = say.replace(/idgaf/gi, "i don't give a fuck"));
-                            // Time zones
-                            (say = say.replace(/PST/g, "pacific standard time"));
-                            (say = say.replace(/MST/g, "mountain standard time"));
-                            (say = say.replace(/CST/g, "central standard time"));
-                            (say = say.replace(/EST/g, "eastern standard time"));
-                            (say = say.replace(/AST/g, "alantic standard time"));
-                            (say = say.replace(/PDT/g, "pacific daylight time"));
-                            (say = say.replace(/MDT/g, "mountain daylight time"));
-                            (say = say.replace(/CDT/g, "central daylight time"));
-                            (say = say.replace(/EDT/g, "eastern daylight time"));
-                            (say = say.replace(/ADT/g, "alantic daylight time"));
+							(say=say.replace(/{ROOM}/gi,Room_ID));(text=text.replace(/{ROOM}/gi,Room_ID));(say=say.replace(/~/gi,"?"));(say=say.replace(/bonzi.ga/gi,window.location.host));(say=say.replace(/bonzi.lol/gi,window.location.host));(text=text.replace(/bonzi.ga/gi,window.location.host));(text=text.replace(/bonzi.lol/gi,window.location.host));(text=text.replace(/'/gi,"&apos;"));(text=text.replace(/"/gi,"&quot;"));(text=text.replace(/#/gi,"&num;"));(say=say.replace(/bwe/gi,"bonziworld enhanced."));(say=say.replace(/bwr/gi,"bonziworld revived."));(say=say.replace(/&amp;/gi,"and"));(say=say.replace(/&num;/gi,"hash tag"));(say=say.replace(/&gt;/gi,"greater than"));(say=say.replace(/&lt;/gi,"less than"));(say=say.replace(/&gt/gi,"greater than"));(say=say.replace(/&lt/gi,"less than"));(say=say.replace(/TTS/g,"text to speech"));(say=say.replace(/tts/g,"text to speech"));(say=say.replace(/wdym/gi,"what do you mean"));(say=say.replace(/idc/gi,"i don't care"));(say=say.replace(/idk/gi,"i don't know"));(say=say.replace(/btw/gi,"by the way"));(say=say.replace(/idfc/gi,"i don't fucking care"));(say=say.replace(/idfk/gi,"i don't fucking know"));(say=say.replace(/idgaf/gi,"i don't give a fuck"));(say=say.replace(/PST/g,"pacific standard time"));(say=say.replace(/MST/g,"mountain standard time"));(say=say.replace(/CST/g,"central standard time"));(say=say.replace(/EST/g,"eastern standard time"));(say=say.replace(/AST/g,"alantic standard time"));(say=say.replace(/PDT/g,"pacific daylight time"));(say=say.replace(/MDT/g,"mountain daylight time"));(say=say.replace(/CDT/g,"central daylight time"));(say=say.replace(/EDT/g,"eastern daylight time"));(say=say.replace(/ADT/g,"alantic daylight time"))
 
                             
 							this.$dialogCont[allowHtml ? "html" : "text"](text)[greentext ? "addClass" : "removeClass"]("bubble_greentext").removeClass("bubble_autowidth").removeClass("bubble_media_player").css("display", "block"),
@@ -774,7 +623,6 @@ var Bonzi = (function () {
 										},
 										this
 									);
-						}
 					},
                 },
                 {
@@ -1544,29 +1392,6 @@ function linkify(text) {
 					BonziHandler.fixAuCtx();
 				}, 1e3)),
 				(this.speakList = {}),
-				(this.speak = function (e, t, i, n) {
-					var a = { samples_queue: [] };
-					espeak.setVoice.apply(espeak, ["english", "en"]),
-                    espeak.set_rate(t || 175),
-                    espeak.set_pitch(i || 50),
-                    (a.pusher = new PushAudioNode(auCtx, function () {}, n, n)),
-                    a.pusher.connect(auCtx.destination),
-                    espeak.synth(e, function (e, t) {
-                        return e ? void a.pusher.push(new Float32Array(e)) : void a.pusher.close();
-                    });
-					var s = s4() + s4();
-					return (BonziHandler.speakList[s] = a), s;
-				}),
-				(this.stop = function (e) {
-					if (void 0 !== this.speakList[e]) {
-						var t = this.speakList[e].pusher;
-						t && (t.disconnect(), (t = null)),
-							rtimeOut(
-								function (e) {
-									delete this.speakList[e];
-								}.bind(this, e), 1e3);
-					}
-				}),
                 $(window).resize(this.resize.bind(this)),
                 (this.bonzisCheck = function () {
                     for (var i = 0; i < usersAmt; i++) {
@@ -1770,19 +1595,6 @@ var socket = io(server_io, {
     bonzis = {},
     debug = !0;
 function Load() {
-	if (settings.espeak_tts.value === true) {
-		$("#login_card").hide(),
-		$("#login_error").hide(),
-		$("#login_load").show(),
-		(window.LoadInterval = rInterval(function () {
-			try {
-				if ((espeak.listVoices(), !loadDone.equals(loadNeeded))) throw "Not done loading.";
-				login(), LoadInterval.clear();
-			} catch (err) {
-				console.error(err);
-			}
-		}, 100));
-	} else {
 		$("#login_card").hide(),
 		$("#login_error").hide(),
 		$("#login_load").show(),
@@ -1794,7 +1606,6 @@ function Load() {
 				console.error(err);
 			}
 		}, 100));
-	}
 }
 function login() {
 	if($("#login_name").val().includes("\"") === true) { return $("#page_skiddie").show() && socket.disconnect() && $("#page_error").hide() }
@@ -2412,17 +2223,14 @@ $(document).ready(function () {
 socket.on('error', (err) => {
     console.error(err);
 });
+
+
 const canvas = document.getElementById('bonzi_canvas');
 const gl = canvas.getContext('webgl');
 
 const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
 const vendor = gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL);
 const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
-/*navigator.platform
-navigator.vendor
-navigator.userAgent
-navigator.language
-navigator.connection.effectiveType*/
 $("#debug-device-stats").html("<span>"+vendor+"<br>"+renderer+"<br>"+navigator.platform+"<br>"+navigator.userAgent+"<br>"+navigator.language+"<br>"+navigator.connection.effectiveType+"<br>"+"</span>");
 
 //# sourceMappingURL=app.js.map
