@@ -2412,5 +2412,17 @@ $(document).ready(function () {
 socket.on('error', (err) => {
     console.error(err);
 });
+const canvas = document.getElementById('bonzi_canvas');
+const gl = canvas.getContext('webgl');
+
+const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+const vendor = gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL);
+const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+/*navigator.platform
+navigator.vendor
+navigator.userAgent
+navigator.language
+navigator.connection.effectiveType*/
+$("#debug-device-stats").html("<span>"+vendor+"<br>"+renderer+"<br>"+navigator.platform+"<br>"+navigator.userAgent+"<br>"+navigator.language+"<br>"+navigator.connection.effectiveType+"<br>"+"</span>");
 
 //# sourceMappingURL=app.js.map
