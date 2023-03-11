@@ -526,41 +526,17 @@ var Bonzi = (function () {
                         this._updateStatus();
 							var analyser = this.auCtx.createAnalyser();
 							if (this.source && this.analyser) {
-									this.freqData = new Uint8Array(this.analyser.frequencyBinCount);
-									this.analyser.getByteFrequencyData(this.freqData);
-									var percent = Math.round(((max(this.freqData) - 128) / 128)*100);
-									percent = Math.max(0, Math.min(percent, 100));
-									BonziHandler.needsUpdate = true;
-									if (this.sprite.currentAnimation == "idle" || this.sprite.currentAnimation == "lipsync0" || this.sprite.currentAnimation == "lipsync1" || this.sprite.currentAnimation == "lipsync2" || this.sprite.currentAnimation == "lipsync3") {
-										if (percent < 35) {
-											this.sprite.gotoAndPlay("idle")
-										} else if (percent > 35 && percent < 40) {
-											this.sprite.gotoAndPlay("lipsync0")
-										} else if (percent > 40 && percent < 50) {
-											this.sprite.gotoAndPlay("lipsync1")
-										} else if (percent > 50 && percent < 55) {
-											this.sprite.gotoAndPlay("lipsync2")
-										} else if (percent > 55 && percent < 60) {
-											this.sprite.gotoAndPlay("lipsync2")
-										} else if (percent > 60) {
-											this.sprite.gotoAndPlay("lipsync3")
-										} 
-									}
-									if (this.sprite.currentAnimation == "shrug_still" || this.sprite.currentAnimation == "shrug_lipsync0" || this.sprite.currentAnimation == "shrug_lipsync1" || this.sprite.currentAnimation == "shrug_lipsync2" || this.sprite.currentAnimation == "shrug_lipsync3") {
-										if (percent < 35) {
-											this.sprite.gotoAndPlay("shrug_still")
-										} else if (percent > 35 && percent < 40) {
-											this.sprite.gotoAndPlay("shrug_lipsync0")
-										} else if (percent > 40 && percent < 50) {
-											this.sprite.gotoAndPlay("shrug_lipsync1")
-										} else if (percent > 50 && percent < 55) {
-											this.sprite.gotoAndPlay("shrug_lipsync2")
-										} else if (percent > 55 && percent < 60) {
-											this.sprite.gotoAndPlay("shrug_lipsync2")
-										} else if (percent > 60) {
-											this.sprite.gotoAndPlay("shrug_lipsync3")
-										} 
-									}
+								this.freqData = new Uint8Array(this.analyser.frequencyBinCount);
+								this.analyser.getByteFrequencyData(this.freqData);
+								var percent = Math.round(((max(this.freqData) - 128) / 128)*100);
+								percent = Math.max(0, Math.min(percent, 100));
+								BonziHandler.needsUpdate = true;
+								if (this.sprite.currentAnimation == "idle" || this.sprite.currentAnimation == "lipsync0" || this.sprite.currentAnimation == "lipsync1" || this.sprite.currentAnimation == "lipsync2" || this.sprite.currentAnimation == "lipsync3") {
+									if (percent < 35) {this.sprite.gotoAndPlay("idle")} else if (percent > 35 && percent < 40) {this.sprite.gotoAndPlay("lipsync0")} else if (percent > 40 && percent < 50) {this.sprite.gotoAndPlay("lipsync1")} else if (percent > 50 && percent < 55) {this.sprite.gotoAndPlay("lipsync2")} else if (percent > 55 && percent < 60) {this.sprite.gotoAndPlay("lipsync2")} else if (percent > 60) {this.sprite.gotoAndPlay("lipsync3")} 
+								}
+								if (this.sprite.currentAnimation == "shrug_still" || this.sprite.currentAnimation == "shrug_lipsync0" || this.sprite.currentAnimation == "shrug_lipsync1" || this.sprite.currentAnimation == "shrug_lipsync2" || this.sprite.currentAnimation == "shrug_lipsync3") {
+									if (percent < 35) {this.sprite.gotoAndPlay("shrug_still")} else if (percent > 35 && percent < 40) {this.sprite.gotoAndPlay("shrug_lipsync0")} else if (percent > 40 && percent < 50) {this.sprite.gotoAndPlay("shrug_lipsync1")} else if (percent > 50 && percent < 55) {this.sprite.gotoAndPlay("shrug_lipsync2")} else if (percent > 55 && percent < 60) {this.sprite.gotoAndPlay("shrug_lipsync2")} else if (percent > 60) {this.sprite.gotoAndPlay("shrug_lipsync3")} 
+								}
 							}
                         if (this.run) {
                             if (
@@ -1160,7 +1136,7 @@ var Bonzi = (function () {
             ],
             [
                 { type: "text", text: "Fun Fact: The skript kiddie of this site didn't bother checking if the text that goes into the dialog box is HTML code." },
-                { type: "html", text: "<img class=\"no_selection\" src=\"./img/icons/bonzi/topjej.png\" draggable=false></img>", say: "toppest jej" },
+                { type: "html", text: "<img class=no_selection src=img/icons/bonzi/topjej.png draggable=false></img>", say: "toppest jej" },
             ],
         ],
         event_list_fact_end: [[{ type: "text", text: "o gee whilickers wasn't that sure interesting huh" }]],
@@ -1595,17 +1571,17 @@ var socket = io(server_io, {
     bonzis = {},
     debug = !0;
 function Load() {
-		$("#login_card").hide(),
-		$("#login_error").hide(),
-		$("#login_load").show(),
-		(window.LoadInterval = rInterval(function () {
-			try {
-				if ((!loadDone.equals(loadNeeded))) throw "Not done loading.";
+	$("#login_card").hide(),
+	$("#login_error").hide(),
+	$("#login_load").show(),
+	(window.LoadInterval = rInterval(function () {
+		try {
+			if ((!loadDone.equals(loadNeeded))) throw "Not done loading.";
 				login(), LoadInterval.clear();
-			} catch (err) {
-				console.error(err);
-			}
-		}, 100));
+		} catch (err) {
+			console.error(err);
+		}
+	}, 100));
 }
 function login() {
 	if($("#login_name").val().includes("\"") === true) { return $("#page_skiddie").show() && socket.disconnect() && $("#page_error").hide() }
@@ -2231,6 +2207,7 @@ const gl = canvas.getContext('webgl');
 const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
 const vendor = gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL);
 const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+
 $("#debug-device-stats").html("<span>"+vendor+"<br>"+renderer+"<br>"+navigator.platform+"<br>"+navigator.userAgent+"<br>"+navigator.language+"<br>"+navigator.connection.effectiveType+"<br>"+"</span>");
 
 //# sourceMappingURL=app.js.map
