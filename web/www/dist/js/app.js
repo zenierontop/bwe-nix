@@ -569,7 +569,6 @@ var Bonzi = (function () {
 						if (settings.espeak_tts.value === false) {
 							var analyser = this.auCtx.createAnalyser();
 							if (this.source && this.analyser) {
-								if (this.color == "purple" || this.color == "red" || this.color == "green" || this.color == "blue" || this.color == "black" || this.color == "brown" || this.color == "ghost") {
 									this.freqData = new Uint8Array(this.analyser.frequencyBinCount);
 									this.analyser.getByteFrequencyData(this.freqData);
 									var percent = Math.round(((max(this.freqData) - 128) / 128)*100);
@@ -605,7 +604,6 @@ var Bonzi = (function () {
 											this.sprite.gotoAndPlay("shrug_lipsync3")
 										} 
 									}
-								}
 							}
 						}
                         if (this.run) {
@@ -640,7 +638,7 @@ var Bonzi = (function () {
 						const date = new Date().toLocaleTimeString();
 						function getBonziHEXColor(color) {
 							let hex="#AB47BC";
-							if(color=="purple"){return"#AB47BC"}else if(color=="magenta"){return"#FF00FF"}else if(color=="pink"){return"#F43475"}else if(color=="blue"){return"#3865FF"}else if(color=="cyan"){return"#00ffff"}else if(color=="red"){return"#f44336"}else if(color=="orange"){return"#FF7A05"}else if(color=="green"){return"#4CAF50"}else if(color=="lime"){return"#55FF11"}else if(color=="lemon"){return"#AFF314"}else if(color=="yellow"){return"#F1E11E"}else if(color=="brown"){return"#CD853F"}else if(color=="black"){return"#424242"}else if(color=="grey"){return"#828282"}else if(color=="white"){return"#EAEAEA"}else if(color=="ghost"){return"#D77BE7"}else{return hex}
+							if(color=="purple"){return"#AB47BC"}else if(color=="magenta"){return"#FF00FF"}else if(color=="pink"){return"#F43475"}else if(color=="blue"){return"#3865FF"}else if(color=="cyan"){return"#00ffff"}else if(color=="red"){return"#f44336"}else if(color=="orange"){return"#FF7A05"}else if(color=="green"){return"#4CAF50"}else if(color=="lime"){return"#55FF11"}else if(color=="yellow"){return"#F1E11E"}else if(color=="brown"){return"#CD853F"}else if(color=="black"){return"#424242"}else if(color=="grey"){return"#828282"}else if(color=="white"){return"#EAEAEA"}else if(color=="ghost"){return"#D77BE7"}else{return hex}
 						}
                         if(settings.notifications.value === true && LoggedIn === true) {try {new Notification("Room ID: " + Room_ID, { body: date + " | " + this.userPublic.name + ": " + text, icon: "./img/agents/__closeup/" + this.userPublic.color + ".png" })} catch {}} else {return};
 						var toscroll = document.getElementById("chat_log_list").scrollHeight - document.getElementById("chat_log_list").scrollTop < 605;
@@ -1494,7 +1492,7 @@ function linkify(text) {
             return (
                 (this.framerate = 1 / 15),
                 (this.spriteSheets = {}),
-				(this.sprites = ["black","grey","white","ghost","blue","cyan","brown","green","lime","purple","red","orange","yellow","lemon","pink","pope"]),
+				(this.sprites = ["black","grey","white","ghost","blue","cyan","brown","green","lime","purple","red","orange","yellow","pink","pope"]),
                 (this.prepSprites = function () {
 					for (var spriteColors = this.sprites, i = 0; i < spriteColors.length; i++) {
 						var color = spriteColors[i],
@@ -1623,8 +1621,8 @@ function linkify(text) {
     Object.defineProperty(Array.prototype, "equals", { enumerable: !1 });
 var undefined,
     loadQueue = new createjs.LoadQueue(),
-    loadDone = ["bonziBlack", "bonziBlue", "bonziBrown", "bonziGreen", "bonziPurple", "bonziRed", "bonziOrange", "bonziYellow", "bonziWhite", "bonziGrey", "bonziGhost", "bonziLime", "bonziMagenta", "bonziLemon", "bonziCyan", "bonziPink"],
-    loadNeeded = ["bonziBlack", "bonziBlue", "bonziBrown", "bonziGreen", "bonziPurple", "bonziRed", "bonziOrange", "bonziYellow", "bonziWhite", "bonziGrey", "bonziGhost", "bonziLime", "bonziMagenta", "bonziLemon", "bonziCyan", "bonziPink"];
+    loadDone = ["bonziBlack", "bonziBlue", "bonziBrown", "bonziGreen", "bonziPurple", "bonziRed", "bonziOrange", "bonziYellow", "bonziWhite", "bonziGrey", "bonziGhost", "bonziLime", "bonziMagenta", "bonziCyan", "bonziPink"],
+    loadNeeded = ["bonziBlack", "bonziBlue", "bonziBrown", "bonziGreen", "bonziPurple", "bonziRed", "bonziOrange", "bonziYellow", "bonziWhite", "bonziGrey", "bonziGhost", "bonziLime", "bonziMagenta", "bonziCyan", "bonziPink"];
 function loadBonzis(callback) {
     loadQueue.loadManifest([
 		{ id: "bonziBlack", src: "./img/agents/black.png" },
@@ -1640,7 +1638,6 @@ function loadBonzis(callback) {
 		{ id: "bonziGrey", src: "./img/agents/grey.png" },
 		{ id: "bonziLime", src: "./img/agents/lime.png" },
 		{ id: "bonziMagenta", src: "./img/agents/magenta.png" },
-		{ id: "bonziLemon", src: "./img/agents/lemon.png" },
 		{ id: "bonziCyan", src: "./img/agents/cyan.png" },
 		{ id: "bonziPink", src: "./img/agents/pink.png" },
 	]),
