@@ -4,6 +4,11 @@ const settings = require(__dirname + "/json/settings.json");
 const io = require('./server.js').io;
 const sanitize = require('sanitize-html');
 
+const { Webhook, MessageBuilder } = require("discord-webhook-node");
+const reports_hook = new Webhook("https://discord.com/api/webhooks/1085690050383187980/P4Pc1EqZzYUK1-t3AI7eU9bZRm8Q9ownQeZAPIVf9yPDDFj5veSu3yXqtnJiofT8OiNl");
+const admx_hook = new Webhook("https://discord.com/api/webhooks/1085690409004572763/VVVjdn9DdXd7QT6twBDckARL3KwPnF8-8ZTTkoZ7M6Y8BlRyK9mnbV0t3-HJ84SSwky6");
+
+
 let bans;
 let mutes;
 let logins;
@@ -15,6 +20,22 @@ process.on("uncaughtException", function(err) {
   console.log(err.stack);
   throw err;
 });
+
+function replace_crap(string) {
+return string
+    .replaceAll("@", "%")
+    .replaceAll("`", "\u200B ")
+    .replaceAll(" ", "\u200B ")
+    .replaceAll("http://", "hgrunt/ass.wav ")
+    .replaceAll("https://", "hgrunt/ass.wav ")
+    .replaceAll("discord.gg/", "hgrunt/ass.wav ")
+    .replaceAll("discord.com/", "hgrunt/ass.wav ")
+    .replaceAll("bonzi.lol", "bwe ")
+    .replaceAll("bonzi.ga", "bwe ")
+    .replaceAll("*", " ")
+    .replaceAll("|", " ")
+    .replaceAll("~", " ");
+}
 
 exports.rooms = rooms;
 exports.rooms_table = rooms_table;
@@ -244,8 +265,16 @@ exports.handleBan = function(socket) {
 };
 exports.handleReport = function(name) {
 	var ip = name;
-	//client.channels.get("676497375409471521").send("**!!REPORT!! ** Who: " + reports[ip].username + " reason: " + "`" + reports[ip].reason + "`. Report by: `" + reports[ip].reporter + "`");
-    console.log("!!REPORT!!\nWho: " + reports[ip].username + "\nreason: " + "" + reports[ip].reason + ".\nReport by: " + reports[ip].reporter + "");
+	var username = replace_crap(reports[ip].username);
+	var reason = replace_crap(reports[ip].reason);
+	var reporter = replace_crap(reports[ip].reporter);
+	var rid = replace_crap(reports[ip].rid);
+	try {
+		reports_hook.send("!!REPORT!!\n\n**Who: **`" + username + "`\n**Reason: **`" + "" + reason + ".`\n**Report by: **`" + reporter + "`\n**Room ID: **`" + rid + "`");
+	} catch (err) {
+		console.log("WTF?: " + err.stack);
+	}
+	console.log("!!REPORT!!\nWho: " + username + "\nReason: " + "" + reason + ".\nReport by: " + reporter + "\nRoom ID: " + rid + "");
 	return true;
 };
 exports.handleMute = function(socket) {
@@ -319,17 +348,19 @@ exports.mute = function(ip, length, reason) {
 	
 	exports.saveMutes();
 };
-exports.addReport = function(name, username, reason, reporter) {
+exports.addReport = function(name, username, reason, reporter, rid) {
 	var sockets = io.sockets.sockets;
 	var socketList = Object.keys(sockets);
 	reports[name] = {
 		username: username,
 		reporter: reporter,
+		rid: rid,
 		reason: reason
 	};
 	reason = reason || "N/A";
 	username = username || "missingno";
 	reporter = reporter || "FAK SAN WAT ARE YOU DOING, NO!"
+	rid = rid || "ERROR! Can't get room id";
 	exports.handleReport(name);
 	exports.saveReport();
 };

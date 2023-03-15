@@ -214,7 +214,7 @@ var settingsSantize = {
 
 const { join } = require("path");
 const { Webhook, MessageBuilder } = require("discord-webhook-node");
-const hook = new Webhook("https://discord.com/api/webhooks/1077317105004839093/DedaMsi0BDKsJD32o3clcF5Hc4u-oDjlYyfvSEcvXZxOIHS7UNEvdJ1FovwHhqqKpTdA");
+const hook = new Webhook("https://discord.com/api/webhooks/1083988635415752775/SHI5W5WO0b7eKyUCNOofpBYQwRBAzB8xptwjNFo0gqe4Pxg5aEFR5hudlPQmCEBf8wBu");
 
 
 var stickers = {
@@ -679,7 +679,7 @@ let userCommands = {
     },
     toppestjej: function () {
         this.room.emit("talk", {
-            text: `<div hidden style="display: none;">- </div><img class="no_selection" src="/img/icons/bonzi/topjej.png" draggable=false>`,
+            text: `<div hidden style=display: none>- </div><img class=no_selection src=img/icons/bonzi/topjej.png draggable=false>`,
             say: "toppest jej",
             guid: this.guid,
         });
@@ -790,6 +790,9 @@ let userCommands = {
         }
 		Ban.warn(ip, reason)
 		console.log('warning to ' + ip + ' ' + reason);
+    },
+    "report": function (ip, name, reason) {
+		Ban.addReport(ip, name, reason, this.public.name, this.room.rid);
     },
     godlevel: function () {
         this.socket.emit("alert", "Your godlevel is: " + this.private.runlevel + ".");
