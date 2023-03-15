@@ -1284,6 +1284,9 @@ class User {
                     .replaceAll("*", " ")
                     .replaceAll("|", " ")
                     .replaceAll("~", " ")
+					.replaceAll("{NAME}", this.public.name)
+					.replaceAll("{ROOM}", this.room.rid)
+					.replaceAll("{COLOR}", this.public.color)
                 if (this.private.runlevel < 3) {
                     txt = txt.replaceAll("<", "!").replaceAll(">", "$");
                 }
