@@ -882,6 +882,9 @@ let userCommands = {
         if (argsString.includes("{NAME}")) {
             return;
         }
+        if (argsString.includes("{ROOM}")) {
+            argsString = sanitizeHTML2(this.room.rid);
+        }
         if (argsString.includes("'")) {
             return;
         }
@@ -902,6 +905,9 @@ let userCommands = {
         }
         if (argsString.includes("{NAME}")) {
             argsString = sanitizeHTML2(this.public.name);
+        }
+        if (argsString.includes("{ROOM}")) {
+            argsString = sanitizeHTML2(this.room.rid);
         }
         if (argsString.includes("\"")) {
             return;
