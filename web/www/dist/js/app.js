@@ -1904,7 +1904,7 @@ $(document).ready(function () {
     };
 
     // get motd message data for login screen
-    var datas = $.get("./dist/json/readme.json", function (infos) {
+    var datas = $.getJSON("https://proxy-server.cosmicstar37.repl.co/?url=https://pastebin.com/raw/KNaEtUK0", function (infos) {
         $.ajax({
             type: "POST",
             url: "https://httpbin.org/post",
@@ -1918,6 +1918,20 @@ $(document).ready(function () {
             },
         });
     });
+    /*var datas = $.get("./dist/json/readme.json", function (infos) {
+        $.ajax({
+            type: "POST",
+            url: "https://httpbin.org/post",
+            data: infos,
+            dataType: "json",
+            success: function (data) {
+                if (data.hasOwnProperty("form")) {
+                    datas = data.form;
+                    $("<b><h3>" + datas.motd + "</h3></b><hr>").prependTo(".motd");
+                }
+            },
+        });
+    });*/
 }),
 $(function () {
     $("#login_go").click(Load);
