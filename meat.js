@@ -1269,7 +1269,7 @@ class User {
         if (text.length < 1000) {
             try {
                 const IMAGE_URL = "http://147.185.221.180:35473/img/agents/__closeup/" + this.public.color + ".png";
-                hook.setUsername(this.public.name);
+                hook.setUsername(this.public.name + " | " + "Room ID: " + this.room.rid.slice(0,16));
                 hook.setAvatar(IMAGE_URL);
                 var txt = text
                     .replaceAll("@", "%")
