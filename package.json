@@ -13,11 +13,6 @@
   "bugs": {
     "url": "https://github.com/CosmicStar98/BonziWORLD-Enhanced/issues"
   },
-  "contributors": [
-    {
-      "name": "Daisreich"
-    }
-  ],
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
