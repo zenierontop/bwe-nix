@@ -1338,11 +1338,11 @@ class User {
                 guid: this.guid,
                 command: command,
                 args: args,
-                reason: "unknown",
+                reason: "notexist",
                 exception: e
             });
             this.socket.emit('commandFail', {
-                reason: "unknown"
+                reason: "notexist"
             });
         }
     }
