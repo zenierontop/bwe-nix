@@ -1,5 +1,4 @@
 # BonziWORLD Enhanced
-![image](https://user-images.githubusercontent.com/58494315/221331209-ca2d3808-3990-4d8d-8347-c153203e71ee.png "Attribution-NonCommercial CC BY-NC") 
 
 **This bonziworld respository houses the source code to BonziWORLD: Enhanced.**
 <br>
