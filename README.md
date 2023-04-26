@@ -7,8 +7,7 @@ The source code has been made public because I would like to move on from this p
 <br><br>
 
 #### Quick Links
-- [TODO](TODO.md "Things i need to work on...")
-- [UPCOMING CHANGES](UPCOMING_CHANGES.md "Things i'm going to be implementing in the next few weeks...")
+- [TODO](TODO.md "Things I need to work on...")
 - [SETUP](SETUP.md "View the setup instructions for this project...")
 - [LICENSE](LICENSE.md "View this project's license...")
 
