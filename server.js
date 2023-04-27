@@ -46,6 +46,18 @@ if (settings.express.serveStatic) app.use(express.static(__dirname + "/web/www")
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 app.use(cookieParser());
+app.get('/readme.html', function(req, res) {
+  res.sendFile(__dirname + '/web/www/readme/index.html');
+});
+app.get('/rules.html', function(req, res) {
+  res.sendFile(__dirname + '/web/www/rules/index.html');
+});
+app.get('/discord.html', function(req, res) {
+  res.sendFile(__dirname + '/web/www/discord/index.html');
+});
+app.get('/arcade.html', function(req, res) {
+  res.sendFile(__dirname + '/web/www/arcade/index.html');
+});
 app.get('/sitemap.xml', function(req, res) {
   res.sendFile(__dirname + '/web/www/sitemap.xml');
 });
