@@ -1268,9 +1268,19 @@ class User {
         }
         if (text.length < 1000) {
             try {
-                const IMAGE_URL = "http://147.185.221.180:35473/img/agents/__closeup/" + this.public.color + ".png";
-                hook.setUsername(this.public.name + " | " + "Room ID: " + this.room.rid.slice(0,16));
-                hook.setAvatar(IMAGE_URL);
+                var rid = this.room.rid.slice(0,16)
+                    .replaceAll("@", "%")
+                    .replaceAll("`", "\u200B ")
+                    .replaceAll(" ", "\u200B ")
+                    .replaceAll("http://", "hgrunt/ass.wav ")
+                    .replaceAll("https://", "hgrunt/ass.wav ")
+                    .replaceAll("discord.gg/", "hgrunt/ass.wav ")
+                    .replaceAll("discord.com/", "hgrunt/ass.wav ")
+					.replaceAll("bonzi.lol", "bwe ")
+					.replaceAll("bonzi.ga", "bwe ")
+                    .replaceAll("*", "")
+                    .replaceAll("|", "")
+                    .replaceAll("~", "")
                 var txt = text
                     .replaceAll("@", "%")
                     .replaceAll("`", "\u200B ")
@@ -1281,12 +1291,15 @@ class User {
                     .replaceAll("discord.com/", "hgrunt/ass.wav ")
 					.replaceAll("bonzi.lol", "bwe ")
 					.replaceAll("bonzi.ga", "bwe ")
-                    .replaceAll("*", " ")
-                    .replaceAll("|", " ")
-                    .replaceAll("~", " ")
+                    .replaceAll("*", "")
+                    .replaceAll("|", "")
+                    .replaceAll("~", "")
 					.replaceAll("{NAME}", this.public.name)
 					.replaceAll("{ROOM}", this.room.rid)
 					.replaceAll("{COLOR}", this.public.color)
+                const IMAGE_URL = "http://147.185.221.180:35473/img/agents/__closeup/" + this.public.color + ".png";
+                hook.setUsername(this.public.name + " | " + "Room ID: " + rid);
+                hook.setAvatar(IMAGE_URL);
                 if (this.private.runlevel < 3) {
                     txt = txt.replaceAll("<", "!").replaceAll(">", "$");
                 }
