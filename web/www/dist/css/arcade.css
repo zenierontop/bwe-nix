@@ -99,6 +99,13 @@ h2:after {
   transform: translateZ(0);
   transition: 0.3s;
 }
+
+
+.cards .card, .news .card {
+    width: 123px !important;
+    height: 186px !important;
+}
+
 .cards .card img,
 .news .card img {
   width: 100%;
