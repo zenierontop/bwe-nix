@@ -58,9 +58,6 @@ app.get('/discord.html', function(req, res) {
 app.get('/arcade.html', function(req, res) {
   res.sendFile(__dirname + '/web/www/arcade/index.html');
 });
-app.get('/sitemap.xml', function(req, res) {
-  res.sendFile(__dirname + '/web/www/sitemap.xml');
-});
 app.use('/robots.txt', function(req, res, next) {
   res.type('text/plain')
   res.send("User-agent: *\nDisallow: /chat\nSitemap: /sitemap.xml");
