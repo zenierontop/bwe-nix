@@ -796,7 +796,7 @@ let userCommands = {
             return;
         }
         if (argsString.includes("{ROOM}")) {
-            argsString = sanitizeHTML2(this.room.rid);
+            argsString = sanitizeHTML2(this.room.rid.slice(0,16));
         }
         if (argsString.includes("'")) {
             return;
@@ -820,7 +820,7 @@ let userCommands = {
             argsString = sanitizeHTML2(this.public.name);
         }
         if (argsString.includes("{ROOM}")) {
-            argsString = sanitizeHTML2(this.room.rid);
+            argsString = sanitizeHTML2(this.room.rid.slice(0,16));
         }
         if (argsString.includes("\"")) {
             return;
