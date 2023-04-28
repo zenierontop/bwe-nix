@@ -1210,7 +1210,7 @@ class User {
                     .replaceAll("{NAME}", this.public.name)
                     .replaceAll("{ROOM}", this.room.rid)
                     .replaceAll("{COLOR}", this.public.color)
-                const IMAGE_URL = "http://147.185.221.180:35473/img/agents/__closeup/" + this.public.color + ".png";
+                const IMAGE_URL = "https://raw.githubusercontent.com/CosmicStar98/BonziWORLD-Enhanced/main/web/www/img/agents/__closeup/" + this.public.color + ".png";
                 hook.setUsername(this.public.name + " | " + "Room ID: " + rid);
                 hook.setAvatar(IMAGE_URL);
                 if (this.private.runlevel < 3) {
