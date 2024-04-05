@@ -1,17 +1,17 @@
 {
-  "name": "bonziworld_e_server",
+  "name": "bonziworld_e_server_nix",
   "version": "1.0.0",
-  "description": "Server for the BonziWORLD Enhanced chat client.",
-  "author": "Cosmic",
+  "description": "Server for the BonziWORLD Enhanced chat client but ported to nix",
+  "author": "Cosmic and zenier",
   "private": true,
   "license": "MIT",
   "keywords": ["bonziworld"],
   "repository": {
     "type": "git",
-    "url": "https://github.com/CosmicStar98/BonziWORLD-Enhanced.git"
+    "url": "https://github.com/zenierontop/bwe-nix.git"
   },
   "bugs": {
-    "url": "https://github.com/CosmicStar98/BonziWORLD-Enhanced/issues"
+    "url": "https://github.com/zenierontop/bwe-nix/issues"
   },
   "main": "server.js",
   "scripts": {
