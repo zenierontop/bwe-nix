@@ -1,11 +1,14 @@
-# BonziWORLD Enhanced
+# BonziWORLD Enhanced but for nix
 
-**This bonziworld respository houses the source code to BonziWORLD: Enhanced.**
+**This code is not made by me, check the end of the line of this for less detail.**
 <br>
-The source code has been made public because I would like to move on from this project and work on something else. Since it's just been sitting here collecting dust, I figured I should make this public. Who knows, maybe somebody will find this useful.
+Hello friends! Visit my site for some virooses and some goodware at :zenierontop.github.io:
 <br><br>
 ## What is this?
-BonziWORLD Enhanced is a fork of vanilla BonziWORLD which provides simple qol improvements and bug fixes to the original.
+BonziWORLD Enhanced repo i found but its ported to nix
+## But its useless!
+maybe it is, but if i find some shit that cant work on nix then ill probably fix it 
+ALERT: NOT REALLY NIX, YOU STILL NEED NPM BUT IM WORKING ON TRYING TO GET IT TO BE PREBUILT
 <br><br>
 
 #### Quick Links
@@ -18,7 +21,7 @@ BonziWORLD Enhanced is a fork of vanilla BonziWORLD which provides simple qol im
 ### License & Copyright
 MIT
 
-Copyright (c) 2023-2026 Cosmic
+I DO NOT OWN THIS, CREDITS TO COSMIC FOR THE REPO
 
 
 <hr>
